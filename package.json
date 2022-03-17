@@ -1,0 +1,29 @@
+{
+  "name": "csi_3450_project",
+  "version": "1.0.0",
+  "description": "Games Database for CSI 3450 project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSIWill/csi_3450_project.git"
+  },
+  "author": "Will Eng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSIWill/csi_3450_project/issues"
+  },
+  "homepage": "https://github.com/CSIWill/csi_3450_project#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "node-fetch": "^2.0.0",
+    "nodemon": "^2.0.15",
+    "rawger": "^1.3.2"
+  }
+}
