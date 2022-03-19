@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize ejs Middleware
 app.set('view engine', 'ejs');
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public/'));
 
 // routes
 app.get("/", (req, res) => {
@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 // router to use api
-// app.use(rawgRoutes);
+app.use(rawgRoutes);
 
 // Setup server ports
 const PORT = process.env.PORT || 3000;
