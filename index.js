@@ -22,8 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use('/public', express.static(__dirname + '/public/'));
 
-var gameData;
-
 // routes
 
 // router to use api
