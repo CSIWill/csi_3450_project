@@ -46,3 +46,8 @@ a:visited{
 a:hover{
     color: rgb(240,128,128);
 }
+
+img {
+    width: 20%;
+    height: 20%;
+}

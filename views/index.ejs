@@ -23,6 +23,47 @@
     </header>
     <main>
         <h1>Featured Games / Latest Releases</h1>
+        <ul>
+            <% for(let i=0; i < games.length; i++) { %>
+                <li>
+                   <h2>
+                       <%= `${games[i].name}` %>
+                   </h2>
+                    <ul>
+                        <li>
+                            <img src="<%= `${games[i].background_image}`%>" alt="<%=`${games[i].name}`%>">
+                        </li>
+                        <li>
+                            <h3>Metacritic:</h3>
+                            <%= `${games[i].metacritic}` %>
+                        </li>
+                        <li>
+                            <%= `${games[i].genres}` %>                           
+                        </li>
+                        <li>
+                            <h3>Platforms: </h3>
+                            <ul>
+                                <% for(let j=0; j < games[i].platforms.length; j++) {%>
+                                <li>
+                                    <%= `${games[i].platforms[j].platform.name}` %>
+                                </li>
+                                <% }%>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Stores: </h3>
+                            <ul>
+                                <% for(let k=0; k < games[i].stores.length; k++) {%>
+                                <li>
+                                    <%= `${games[i].stores[k].store.name}` %>
+                                </li>
+                                <% }%>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            <%} %>
+        </ul>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite 
