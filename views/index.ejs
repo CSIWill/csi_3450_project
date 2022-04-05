@@ -35,10 +35,19 @@
                         </li>
                         <li>
                             <h3>Metacritic:</h3>
-                            <%= `${games[i].metacritic}` %>
+                            <li>
+                                <%= `${games[i].metacritic}` %>
+                            </li>
                         </li>
                         <li>
-                            <%= `${games[i].genres}` %>                           
+                            <h3>Genres:</h3>
+                            <ul>
+                                <% for(let j=0; j < games[i].genres.length; j++) {%>
+                                    <li>
+                                        <%= `${games[i].genres[j].name}` %>
+                                    </li>
+                                    <% }%>
+                            </ul>           
                         </li>
                         <li>
                             <h3>Platforms: </h3>
