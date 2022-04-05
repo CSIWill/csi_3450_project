@@ -3,8 +3,8 @@ DROP TABLE GAMES, STORE, GENRE, DEVELOPER, USERS, PLATFORM, GAME_PLATFORM, GAMES
 -- Table GAMES
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS GAMES (
-  GAMES_ID INT NOT NULL,
-  GAMES_TITLE VARCHAR(45) NULL,
+  GAMES_ID INT,
+  GAMES_TITLE VARCHAR(45) NULL UNIQUE,
   GAMES_SCORE INT NULL,
   GAMES_AGE_RATING VARCHAR(45) NULL,
   PRIMARY KEY (GAMES_ID)
@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS GAMES (
 -- Table STORE
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS STORE (
-  STORE_ID INT NOT NULL,
-  STORE_NAME VARCHAR(45) NULL,
+  STORE_ID INT,
+  STORE_NAME VARCHAR(45) UNIQUE,
   PRIMARY KEY (STORE_ID)
 );
 
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS STORE (
 -- Table GENRE
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS GENRE (
-  GENRE_ID INT NOT NULL,
-  GENRE_NAME VARCHAR(45) NULL,
+  GENRE_ID INT,
+  GENRE_NAME VARCHAR(45) UNIQUE,
   PRIMARY KEY (GENRE_ID)
 );
 
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS GENRE (
 -- Table DEVELOPER
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS DEVELOPER (
-  DEV_ID INT NOT NULL,
-  DEV_NAME VARCHAR(45) NULL,
+  DEV_ID INT,
+  DEV_NAME VARCHAR(45) UNIQUE,
   PRIMARY KEY (DEV_ID)
 );
 
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS DEVELOPER (
 -- Table USERS
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS USERS (
-  USER_ID INT NOT NULL,
-  USER_EMAIL VARCHAR(45) NULL,
+  USER_ID SERIAL,
+  USER_EMAIL VARCHAR(45) UNIQUE,
   USER_PASSWORD VARCHAR(45) NULL,
   PRIMARY KEY (USER_ID)
 );
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS USERS (
 -- Table PLATFORM
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS PLATFORM (
-  PLATFORM_ID INT NOT NULL,
-  PLATFORM_NAME VARCHAR(45) NULL,
+  PLATFORM_ID INT,
+  PLATFORM_NAME VARCHAR(45) UNIQUE,
   PRIMARY KEY (PLATFORM_ID)
 );
 
@@ -179,75 +179,75 @@ CREATE TABLE IF NOT EXISTS WISHLIST (
 );
 -- -----------------------------------------------------
 --Members of the team are admins
-INSERT INTO USERS
-VALUES(1,'weng2@oakland.edu','Admin');
-INSERT INTO USERS
-VALUES(2,'tkking@oakland.edu','Admin');
-INSERT INTO USERS
-VALUES(3,'stevenlee@oakland.edu','Admin');
+-- INSERT INTO USERS
+-- VALUES(1,'weng2@oakland.edu','Admin');
+-- INSERT INTO USERS
+-- VALUES(2,'tkking@oakland.edu','Admin');
+-- INSERT INTO USERS
+-- VALUES(3,'stevenlee@oakland.edu','Admin');
 -- -----------------------------------------------------
 --Genre lookup values.
-INSERT INTO GENRE
-VALUES(1, 'Action');
-INSERT INTO GENRE
-VALUES(2, 'Adventure & Casual');
-INSERT INTO GENRE
-VALUES(3, 'Role-Playing');
-INSERT INTO GENRE
-VALUES(4, 'Strategy');
-INSERT INTO GENRE
-VALUES(5, 'Sports & Racing');
-INSERT INTO GENRE
-VALUES(6, 'Simulation');
-INSERT INTO GENRE
-VALUES(7, 'Puzzle');
-INSERT INTO GENRE
-VALUES(8, 'Shooter');
+-- INSERT INTO GENRE
+-- VALUES(1, 'Action');
+-- INSERT INTO GENRE
+-- VALUES(2, 'Adventure & Casual');
+-- INSERT INTO GENRE
+-- VALUES(3, 'Role-Playing');
+-- INSERT INTO GENRE
+-- VALUES(4, 'Strategy');
+-- INSERT INTO GENRE
+-- VALUES(5, 'Sports & Racing');
+-- INSERT INTO GENRE
+-- VALUES(6, 'Simulation');
+-- INSERT INTO GENRE
+-- VALUES(7, 'Puzzle');
+-- INSERT INTO GENRE
+-- VALUES(8, 'Shooter');
 -- -----------------------------------------------------
 -- Developer lookup values
-INSERT INTO DEVELOPER
-VALUES(1, 'Ensemble Studios');
-INSERT INTO DEVELOPER
-VALUES(2, 'Riot Entertainment');
-INSERT INTO DEVELOPER
-VALUES(3, 'BioWare Entertainment');
-INSERT INTO DEVELOPER
-VALUES(4, 'Westwood Studios');
-INSERT INTO DEVELOPER
-VALUES(5, 'Lucasfilm Games');
+-- INSERT INTO DEVELOPER
+-- VALUES(1, 'Ensemble Studios');
+-- INSERT INTO DEVELOPER
+-- VALUES(2, 'Riot Entertainment');
+-- INSERT INTO DEVELOPER
+-- VALUES(3, 'BioWare Entertainment');
+-- INSERT INTO DEVELOPER
+-- VALUES(4, 'Westwood Studios');
+-- INSERT INTO DEVELOPER
+-- VALUES(5, 'Lucasfilm Games');
 -- -----------------------------------------------------
 -- Platform lookup values
-INSERT INTO PLATFORM
-VALUES(1, 'PlayStation 5');
-INSERT INTO PLATFORM
-VALUES(2, 'Xbox One');
-INSERT INTO PLATFORM
-VALUES(3, 'Nintendo Switch');
-INSERT INTO PLATFORM
-VALUES(4, 'PlayStation 4');
-INSERT INTO PLATFORM
-VALUES(5, 'Xbox Series');
-INSERT INTO PLATFORM
-VALUES(6, 'Android');
+-- INSERT INTO PLATFORM
+-- VALUES(1, 'PlayStation 5');
+-- INSERT INTO PLATFORM
+-- VALUES(2, 'Xbox One');
+-- INSERT INTO PLATFORM
+-- VALUES(3, 'Nintendo Switch');
+-- INSERT INTO PLATFORM
+-- VALUES(4, 'PlayStation 4');
+-- INSERT INTO PLATFORM
+-- VALUES(5, 'Xbox Series');
+-- INSERT INTO PLATFORM
+-- VALUES(6, 'Android');
 -- -----------------------------------------------------
 -- Store lookup values
-INSERT INTO STORE
-VALUES(1, 'Steam');
-INSERT INTO STORE
-VALUES(2, 'EpicGames');
-INSERT INTO STORE
-VALUES(3, 'Playstation');
-INSERT INTO STORE
-VALUES (4, 'XBox');
-INSERT INTO STORE
-VALUES(5, 'Xbox360');
-INSERT INTO STORE
-VALUES(6, 'APP');
-INSERT INTO STORE
-VALUES(7, 'GOG');
-INSERT INTO STORE
-VALUES(8, 'Nintendo');
-INSERT INTO STORE
-VALUES(9, 'Google');
-INSERT INTO STORE
-VALUES(10, 'Itch.io');
+-- INSERT INTO STORE
+-- VALUES(1, 'Steam');
+-- INSERT INTO STORE
+-- VALUES(2, 'EpicGames');
+-- INSERT INTO STORE
+-- VALUES(3, 'Playstation');
+-- INSERT INTO STORE
+-- VALUES (4, 'XBox');
+-- INSERT INTO STORE
+-- VALUES(5, 'Xbox360');
+-- INSERT INTO STORE
+-- VALUES(6, 'APP');
+-- INSERT INTO STORE
+-- VALUES(7, 'GOG');
+-- INSERT INTO STORE
+-- VALUES(8, 'Nintendo');
+-- INSERT INTO STORE
+-- VALUES(9, 'Google');
+-- INSERT INTO STORE
+-- VALUES(10, 'Itch.io');
