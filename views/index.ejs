@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,34 @@
     <link rel="stylesheet" href="../public/css/stylesheet.css">
     <title>Home Page</title>
 </head>
+
 <body>
     <header>
         <nav>
             <a href="/">My Home Page</a>
             <a href="/game_info">Game Information</a>
             <a href="/game_price">Game Price</a>
-            <a href="/login" id="login">Login</a>
+            <a href="/users/login" id="login">Login</a>
         </nav>
         <form action="/search/" method="post">
             <input type="text" name="userSearch" id="userSearch">
             <label for="userSearch">Search</label>
             <button type="submit">Submit</button>
         </form>
+        <!-- <form action="/search/" method="post">
+            <input type="text" name="userSearch" id="userSearch">
+            <label for="userSearch">Search</label>
+            <button type="submit">Submit</button>
+        </form> -->
     </header>
     <main>
         <h1>Featured Games / Latest Releases</h1>
         <ul>
             <% for(let i=0; i < games.length; i++) { %>
                 <li>
-                   <h2>
-                       <%= `${games[i].name}` %>
-                   </h2>
+                    <h2>
+                        <%= `${games[i].name}` %>
+                    </h2>
                     <ul>
                         <li>
                             <img src="<%= `${games[i].background_image}`%>" alt="<%=`${games[i].name}`%>">
@@ -38,35 +45,35 @@
                             <%= `${games[i].metacritic}` %>
                         </li>
                         <li>
-                            <%= `${games[i].genres}` %>                           
+                            <%= `${games[i].genres}` %>
                         </li>
                         <li>
                             <h3>Platforms: </h3>
                             <ul>
                                 <% for(let j=0; j < games[i].platforms.length; j++) {%>
-                                <li>
-                                    <%= `${games[i].platforms[j].platform.name}` %>
-                                </li>
-                                <% }%>
+                                    <li>
+                                        <%= `${games[i].platforms[j].platform.name}` %>
+                                    </li>
+                                    <% }%>
                             </ul>
                         </li>
                         <li>
                             <h3>Stores: </h3>
                             <ul>
                                 <% for(let k=0; k < games[i].stores.length; k++) {%>
-                                <li>
-                                    <%= `${games[i].stores[k].store.name}` %>
-                                </li>
-                                <% }%>
+                                    <li>
+                                        <%= `${games[i].stores[k].store.name}` %>
+                                    </li>
+                                    <% }%>
                             </ul>
                         </li>
                     </ul>
                 </li>
-            <%} %>
+                <%} %>
         </ul>
     </main>
     <footer>
-        &copy;2022, Ctrl Alt Elite 
+        &copy;2022, Ctrl Alt Elite
         <br>
         Contact Us
         <address>
@@ -74,4 +81,5 @@
         </address>
     </footer>
 </body>
+
 </html>

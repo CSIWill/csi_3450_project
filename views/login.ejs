@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/css/stylesheet.css">
-    <title>Game Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <title>LOGIN</title>
 </head>
 <body>
     <header>
@@ -13,29 +14,30 @@
             <a href="/">My Home Page</a>
             <a href="/game_info">Game Information</a>
             <a href="/game_price">Game Price</a>
-            <a href="/login" id="login">Login</a>
+            <!-- <a href="/users/login" id="login">Login</a> -->
         </nav>
-        <form action="/search/" method="post">
+        <!-- <form action="/search/" method="post">
             <input type="text" name="userSearch" id="userSearch">
             <label for="userSearch">Search</label>
             <button type="submit">Submit</button>
-        </form>
+        </form> -->
     </header>
     <main>
-        <h1>Welcome</h1>
-        <form>
-            <h2>Please Sign in</h2>
-            <div id="user_id">
-                <label for="user_id_entry">User ID:</label>
-                <input type="text" id="user_id_entry">
-            </div>
-            <div id="password">
-                <label for="password_entry">Password:</label>
-                <input type="text" id="password_entry">
-            </div>
-            <div id="submit">
-                <input class="btn" type="submit" value="Login">
-            </div>
+        <h1>Please Login</h1>
+
+
+
+        <form action="/users/login" method="POST">
+            <div>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div><br>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div><br>
+            <div>
+                <input type="submit" value="Login"/>
+            </div><br>
+            <a href="/users/register" style="color: blue;">Not registered? Register Here</a>
         </form>
     </main>
     <footer>
