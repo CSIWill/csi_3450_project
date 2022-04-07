@@ -18,7 +18,7 @@ const client = new Client({
 client.connect();
 
 // Stores
-for(let page_num = 1; page_num < 2; page_num++) {
+for (let page_num = 1; page_num < 2; page_num++) {
   let options = {
     method: 'GET',
     url: 'https://api.rawg.io/api/stores?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
@@ -28,7 +28,7 @@ for(let page_num = 1; page_num < 2; page_num++) {
     // console.log(storeData.results);
     for (let i = 0; i < storeData.results.length; i++) {
       let storeCreate = 'INSERT INTO STORE(STORE_ID,STORE_NAME) VALUES($1,$2)';
-      let storeInfo = [storeData.results[i].id,storeData.results[i].name];
+      let storeInfo = [storeData.results[i].id, storeData.results[i].name];
       client.query(storeCreate, storeInfo, (err, res) => {
         // if (err) {
         //   console.log(err.stack)
@@ -41,7 +41,7 @@ for(let page_num = 1; page_num < 2; page_num++) {
 }
 
 // Genre
-for(let page_num = 1; page_num < 2; page_num++) {
+for (let page_num = 1; page_num < 2; page_num++) {
   let options = {
     method: 'GET',
     url: 'https://api.rawg.io/api/genres?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
@@ -51,7 +51,7 @@ for(let page_num = 1; page_num < 2; page_num++) {
     // console.log(storeData.results);
     for (let i = 0; i < genreData.results.length; i++) {
       let genreCreate = 'INSERT INTO GENRE(GENRE_ID,GENRE_NAME) VALUES($1,$2)';
-      let genreInfo = [genreData.results[i].id,genreData.results[i].name];
+      let genreInfo = [genreData.results[i].id, genreData.results[i].name];
       client.query(genreCreate, genreInfo, (err, res) => {
         // if (err) {
         //   console.log(err.stack)
@@ -59,45 +59,46 @@ for(let page_num = 1; page_num < 2; page_num++) {
       });
     }
   }).catch(function (error) {
+
     console.error(error);
   });
 }
 
-// Developer
-for(let page_num = 1; page_num < 3; page_num++) {
-  let options = {
-    method: 'GET',
-    url: 'https://api.rawg.io/api/developers?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
-  };
-  axios.request(options).then(function (response) {
-    let devData = response.data;
-    // console.log(devData.results);
-    for (let i = 0; i < devData.results.length; i++) {
-      let devCreate = 'INSERT INTO DEVELOPER(DEV_ID,DEV_NAME) VALUES($1,$2)';
-      let devInfo = [devData.results[i].id,devData.results[i].name];
-      client.query(devCreate, devInfo, (err, res) => {
-        // if (err) {
-        //   console.log(err.stack)
-        // }
-      });
-    }
-  }).catch(function (error) {
-    console.error(error);
-  });
-}
+// // Developer
+// for(let page_num = 1; page_num < 3; page_num++) {
+//   let options = {
+//     method: 'GET',
+//     url: 'https://api.rawg.io/api/developers?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
+//   };
+//   axios.request(options).then(function (response) {
+//     let devData = response.data;
+//     // console.log(devData.results);
+//     for (let i = 0; i < devData.results.length; i++) {
+//       let devCreate = 'INSERT INTO DEVELOPER(DEV_ID,DEV_NAME) VALUES($1,$2)';
+//       let devInfo = [devData.results[i].id,devData.results[i].name];
+//       client.query(devCreate, devInfo, (err, res) => {
+//         // if (err) {
+//         //   console.log(err.stack)
+//         // }
+//       });
+//     }
+//   }).catch(function (error) {
+//     console.error(error);
+//   });
+// }
 
 // Platform
-for(let page_num = 1; page_num < 3; page_num++) {
+for (let page_num = 1; page_num < 3; page_num++) {
   let options = {
     method: 'GET',
     url: 'https://api.rawg.io/api/platforms?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
   };
   axios.request(options).then(function (response) {
     let platData = response.data;
-    // console.log(platData.results);
+    // console.log(platData.next);
     for (let i = 0; i < platData.results.length; i++) {
       let platCreate = 'INSERT INTO PLATFORM(PLATFORM_ID,PLATFORM_NAME) VALUES($1,$2)';
-      let platInfo = [platData.results[i].id,platData.results[i].name];
+      let platInfo = [platData.results[i].id, platData.results[i].name];
       client.query(platCreate, platInfo, (err, res) => {
         // if (err) {
         //   console.log(err.stack)
@@ -110,7 +111,7 @@ for(let page_num = 1; page_num < 3; page_num++) {
 }
 
 // Games
-for(let page_num = 1; page_num < 26; page_num++) {
+for (let page_num = 1; page_num < 3; page_num++) {
   let options = {
     method: 'GET',
     url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
@@ -121,43 +122,90 @@ for(let page_num = 1; page_num < 26; page_num++) {
     // Populate Games
     let gameCreate = 'INSERT INTO GAMES(GAMES_ID,GAMES_TITLE,GAMES_SCORE,GAMES_AGE_RATING) VALUES($1,$2,$3,$4)';
     for (let i = 0; i < gameData.results.length; i++) {
-      
+
       let gameInfo = [0];
 
       if (gameData.results[i].esrb_rating == null) {
-        gameInfo = [gameData.results[i].id,gameData.results[i].name, gameData.results[i].metacritic, 'Not Available'];
+        gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, 'Not Available'];
       }
       else {
-        gameInfo = [gameData.results[i].id,gameData.results[i].name, gameData.results[i].metacritic, gameData.results[i].esrb_rating.name];
+        gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, gameData.results[i].esrb_rating.name];
       }
       client.query(gameCreate, gameInfo, (err, res) => {
         // if (err) {
         //   console.log(err.stack)
         // }
       });
-      //  Game-Platform
-      for (let j=0; j<gameData.results[i].platforms.length; j++) {
+
+      // Developer
+      let devCreate = 'INSERT INTO DEVELOPER(DEV_ID,DEV_NAME) VALUES($1,$2)';
+      // Game_Developer
+      let gameDevCreate = 'INSERT INTO GAMES_DEVELOPER(GAMES_ID,PLATFORM_ID,GAME_RELEASE_DATE,DEV_ID) VALUES($1,$2,$3,$4)';
+      let moreOptions = {
+        method: 'GET',
+        url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '?key=' + process.env.YOUR_API_KEY
+      };
+      axios.request(moreOptions).then(function (response) {
+        let gameDetailData = response.data;
+        let devInfo = [gameDetailData.developers[0].id, gameDetailData.developers[0].name];
+        //developer create
+        client.query(devCreate, devInfo, (err, res) => {
+          // if (err) {
+          //   console.log(err.stack)
+          // }
+        });
+        //game_developer create
+        for (let j = 0; j < gameDetailData.platforms.length; j++) {
+          let gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, gameDetailData.developers[0].id];
+          client.query(gameDevCreate, gameDev, (err, res) => {
+          // if (err) {
+          //   console.log(err.stack)
+          // }
+        });
+        }
+
+
+        // console.log(devInfo);
+        // console.log(gameDev);
+        
+
+        
+      });
+
+      //  Game_Platform
+      for (let j = 0; j < gameData.results[i].platforms.length; j++) {
         let gameID = gameData.results[i].id;
         let platformID = gameData.results[i].platforms[j].platform.id;
         let gamePlatformQuery = 'INSERT INTO GAME_PLATFORM(GAMES_ID,PLATFORM_ID) VALUES($1,$2)';
-        client.query(gamePlatformQuery, [gameID,platformID], (err, res) => {
+        client.query(gamePlatformQuery, [gameID, platformID], (err, res) => {
           // if (err) {
           //   console.log(err.stack)
           // }
         });
       }
-      // Game-Genre Table
-      for (let j=0; j<gameData.results[i].genres.length; j++) {
+      // Games_Genre Table
+      for (let j = 0; j < gameData.results[i].genres.length; j++) {
         let gameID = gameData.results[i].id;
         let genreID = gameData.results[i].genres[j].id;
         let gameGenreQuery = 'INSERT INTO GAMES_GENRE(GAMES_ID,GENRE_ID) VALUES($1,$2)';
-        client.query(gameGenreQuery, [gameID,genreID], (err, res) => {
+        client.query(gameGenreQuery, [gameID, genreID], (err, res) => {
           // if (err) {
           //   console.log(err.stack)
           // }
         });
       }
-      
+      // Game_Developer Table
+      // for (let j = 0; j < gameData.results[i].genres.length; j++) {
+      //   let gameID = gameData.results[i].id;
+
+      //   let developerID = gameData.results[i].genres[j].id;
+      //   let gameGenreQuery = 'INSERT INTO GAMES_developer(GAMES_ID,GENRE_ID) VALUES($1,$2)';
+      //   client.query(gameGenreQuery, [gameID, genreID], (err, res) => {
+      //     // if (err) {
+      //     //   console.log(err.stack)
+      //     // }
+      //   });
+      // }
     }
   }).catch(function (error) {
     console.error(error);
@@ -171,7 +219,8 @@ router.get("/", (req, res) => {
   };
   axios.request(options).then(function (response) {
     let gameData = response.data;
-    // console.log(gameData.results[0].platforms);
+    // console.log(gameData.results[0].added_by_status);
+    // console.log(gameData.results[0].parent_platforms);
     res.render("index.ejs", {
       games: gameData.results,
     });
@@ -203,4 +252,18 @@ router.get('/game_price', async (req, res) => {
 //   }
 // });
 
+// let options = {
+//   method: 'GET',
+//   url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=1'
+// };
+// axios.request(options).then(function (response) {
+//   let gameData = response.data;
+//   console.log(gameData.results[0].added_by_status);
+//   console.log(gameData.results[0].parent_platforms);
+//   res.render("index.ejs", {
+//     games: gameData.results,
+//   });
+// }).catch(function (error) {
+//   console.error(error);
+// });
 module.exports = router;
