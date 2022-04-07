@@ -64,29 +64,6 @@ for (let page_num = 1; page_num < 2; page_num++) {
   });
 }
 
-// // Developer
-// for(let page_num = 1; page_num < 3; page_num++) {
-//   let options = {
-//     method: 'GET',
-//     url: 'https://api.rawg.io/api/developers?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
-//   };
-//   axios.request(options).then(function (response) {
-//     let devData = response.data;
-//     // console.log(devData.results);
-//     for (let i = 0; i < devData.results.length; i++) {
-//       let devCreate = 'INSERT INTO DEVELOPER(DEV_ID,DEV_NAME) VALUES($1,$2)';
-//       let devInfo = [devData.results[i].id,devData.results[i].name];
-//       client.query(devCreate, devInfo, (err, res) => {
-//         // if (err) {
-//         //   console.log(err.stack)
-//         // }
-//       });
-//     }
-//   }).catch(function (error) {
-//     console.error(error);
-//   });
-// }
-
 // Platform
 for (let page_num = 1; page_num < 3; page_num++) {
   let options = {
@@ -163,13 +140,6 @@ for (let page_num = 1; page_num < 3; page_num++) {
           // }
         });
         }
-
-
-        // console.log(devInfo);
-        // console.log(gameDev);
-        
-
-        
       });
 
       //  Game_Platform
@@ -244,26 +214,4 @@ router.get('/game_price', async (req, res) => {
   });
 });
 
-// client.query('SELECT * FROM GAMES WHERE GAMES_ID = 49',(err, res) => {
-//   if (err) {
-//     console.log(err.stack)
-//   } else {
-//     console.log(res.rows[0])
-//   }
-// });
-
-// let options = {
-//   method: 'GET',
-//   url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=1'
-// };
-// axios.request(options).then(function (response) {
-//   let gameData = response.data;
-//   console.log(gameData.results[0].added_by_status);
-//   console.log(gameData.results[0].parent_platforms);
-//   res.render("index.ejs", {
-//     games: gameData.results,
-//   });
-// }).catch(function (error) {
-//   console.error(error);
-// });
 module.exports = router;
