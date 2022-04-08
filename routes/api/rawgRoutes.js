@@ -17,24 +17,24 @@ router.get("/", (req, res) => {
         // }
         url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY,
     };
-    
-    axios.request(options).then(function (response)  {
+
+    axios.request(options).then(function (response) {
         let gameData = response.data;
         console.log(gameData.results[0]);
         console.log(gameData.results[0].stores[0]);
         res.render("index.ejs", {
-        games: gameData.results,
+            games: gameData.results,
         });
     }).catch(function (error) {
-      console.error(error);
+        console.error(error);
     });
-  });
+});
 
 router.get('/login', async (req, res) => {
     res.render('./html/login', {
     });
 });
-  
+
 router.get('/game_info', async (req, res) => {
     res.render('./html/game_info', {
     });

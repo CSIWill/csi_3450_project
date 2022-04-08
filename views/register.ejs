@@ -22,15 +22,15 @@
     <main>
         <h1>Please Register</h1>
 
-            <ul style="text-align: center;">
-                <% if(typeof errors !='undefined' ) { %>
-                    <% errors.forEach(error=>{ %>
-                        <li>
-                            <%= error.message %>
-                        </li>
-                        <% }) %>
-                            <% } %>
-            </ul>
+        <ul style="text-align: center;">
+            <% if(typeof errors !='undefined' ) { %>
+                <% errors.forEach(error=>{ %>
+                    <li>
+                        <%= error.message %>
+                    </li>
+                    <% }) %>
+                        <% } %>
+        </ul>
 
         <form action="/users/register" method="POST">
             <div>
