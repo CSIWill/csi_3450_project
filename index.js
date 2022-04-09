@@ -74,7 +74,13 @@ app.get("/users/login", checkAuthenticated, (req, res) => {
 })
 
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
-  res.render("dashboard");
+  res.render("dashboard", { user: req.user.email });
+})
+
+app.get("/users/logout", (req, res) => {
+  req.logOut();
+  req.flash("success_msg", "You have successfully logged out");
+  res.redirect("/users/login");
 })
 
 app.post("/users/register", async (req, res) => {
