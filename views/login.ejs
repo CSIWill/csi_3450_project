@@ -1,6 +1,7 @@
+<!--START OF NAV BAR CODE
+FOOTER AROUND LINE 370-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +10,331 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
     <title>LOGIN</title>
 </head>
+<!DOCTYPE html>
+<html lang="en" >
 
-<body>
-    <header>
-        <nav>
-            <a href="/">My Home Page</a>
-            <a href="/game_info">Game Information</a>
-            <a href="/game_price">Game Price</a>
-            <!-- <a href="/users/login" id="login">Login</a> -->
-        </nav>
-        <div style="text-align: center;">
-            <!-- <form action="/search/" method="post">
-            <input type="text" name="userSearch" id="userSearch">
-            <label for="userSearch">Search</label>
-            <button type="submit">Submit</button>
-        </form> -->
-        </div>
-    </header>
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>hamburger nav + expanding search bar </title>
+  
+  
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+  
+<style>
+*{
+  margin:0;
+  padding:0;
+}
+
+#nav-wrap{
+  position:fixed;
+  margin-top:0;
+  height: 50px;
+  width:100%;
+  background:#26272b;
+  box-shadow:0 8px 10px -4px #26272b;
+  z-index:1000;
+  top: 0;
+}
+
+#nav-wrap ul{
+  list-style:none;
+  position:relative;
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+#nav-wrap ul a{
+  display:block;
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+  line-height:32px;
+  padding:0 15px;
+  font-family:Helvetica,Arial,sans-serif;
+}
+
+#nav-wrap ul li{
+  position:relative;
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+#nav-wrap ul li ul li:hover{
+  background:#9c9696;
+}
+
+#nav-wrap ul ul{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#26272b;
+  padding:0;
+  box-shadow:5px 6px 10px -1px rgba(231, 231, 231, 0.75);
+}
+
+#nav-wrap ul ul li{
+  float:none;
+  width:200px;
+}
+
+#nav-wrap ul ul a{
+  line-height:120%;
+  padding:10px 15px;
+}
+
+#nav-wrap ul ul ul{
+  top:0;
+  left:100%;
+}
+
+#nav-wrap ul li:hover > ul{
+  display:block;
+}
+
+.menu-icon-btn{
+  color:#ccc;
+  font-size:24px;
+  display:block;
+  height:35px;
+  position:relative;
+  vertical-align:middle;
+  padding-top:9px;
+  padding-left:15px;
+}
+
+.menu-icon-btn:hover{
+  cursor:pointer;
+  color:#898989;
+}
+
+.search-container *{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.search-container *:focus{
+  outline:0;
+}
+
+.search-container{
+  display:table;
+  position:fixed;
+  width:50px;
+  right:0
+}
+
+.search-icon-btn{
+  background-color:#26272b;
+  color:#ccc;
+  font-size:24px;
+  border:1px solid #26272b;
+  display:table-cell;
+  height:35px;
+  position:relative;
+  text-align:center;
+  vertical-align:middle;
+  width:50px;
+  z-index:2;
+  padding-top:6px;
+}
+
+.search-icon-btn:hover{
+  color:#898989;
+  cursor:pointer;
+}
+
+.search-input{
+  position:absolute;
+  right:0;
+  z-index:1;
+}
+
+.search-input input.search-bar{
+  border:solid 1px #fff;
+  height:35px;
+  padding-top:9px;
+  width:50px;
+}
+
+.search-input input.search-bar:focus{
+  padding-left:10px;
+  padding-right:60px;
+  padding-top:9px;
+  width:175px;
+}
+
+.search-input input.search-bar,
+.search-icon-btn{
+  -webkit-transition:all 0.7s;
+  -moz-transition:all 0.7s;
+  -ms-transition:all 0.7s;
+  transition:all 0.7s;
+}
+
+.search-container:hover > .search-input input.search-bar{
+  padding-left:10px;
+  padding-right:60px;
+  padding-top:9px;
+  width:175px;
+}
+
+.search-bar::-webkit-search-cancel-button{
+  -webkit-appearance:none;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <nav id="nav-wrap">
+  <ul>
+    <li>
+      <div class="menu-icon-btn">
+        <i class="fa fa-bars"></i>
+      </div>
+      <ul class="main-menu-container">
+        <li><a href="/">Home</a></li>
+        <li><a href="/game_info">Game Information</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="/game_price">Game Price</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="/users/login">Login</a>
+          <ul>
+            <li><a href="/users/register">Register</a></li>
+            <li><a href="#">Forget Password</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Log Out</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Section</a>
+          <ul>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+            <li><a href="#">Subsection</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+        <li><a href="#">Page</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="search-container">
+    <div class="search-icon-btn">
+      <i class="fa fa-search"></i>
+    </div>
+    <div class="search-input">
+      <input type="search" class="search-bar" placeholder="Search...">
+    </div>
+  </div>
+</nav>
     <main>
-        <h1>Please Login</h1>
+        <style>
+            h1 {
+            padding-top: 160px;
+            padding-bottom: 40px;
+            text-align: center;
+            }
+        </style>
+        <!--END OF NAV BAR CODE-->
 
+        <h1>Login Here</h1>
         <ul style="text-align: center;">
             <% if(messages.success_msg) { %>
                 <li>
@@ -58,14 +364,270 @@
             <a href="/users/register" style="color: blue;">Not registered? Register Here</a>
         </form>
     </main>
+    <!--CODE FOR FOOTER STARTS-->
     <footer>
-        &copy;2022, Ctrl Alt Elite
-        <br>
-        Contact Us
-        <address>
-            <a id="email" href="mailto:weng2@oakland.edu">Email</a>
-        </address>
-    </footer>
+        <!DOCTYPE html>
+        <html lang="en" >
+        
+        <head>
+        
+          <meta charset="UTF-8">
+          
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+        
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+        
+        
+          <title>Footer template</title>
+              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+          
+          
+          
+        <style>
+        .site-footer
+        {
+          background-color:#26272b;
+          padding:45px 0 20px;
+          font-size:15px;
+          line-height:24px;
+          color:#737373;
+          bottom: 0;
+        }
+        .site-footer hr
+        {
+          border-top-color:#bbb;
+          opacity:0.5
+        }
+        .site-footer hr.small
+        {
+          margin:20px 0
+        }
+        .site-footer h6
+        {
+          color:#fff;
+          font-size:16px;
+          text-transform:uppercase;
+          margin-top:5px;
+          letter-spacing:2px
+        }
+        .site-footer a
+        {
+          color:#737373;
+        }
+        .site-footer a:hover
+        {
+          color:#3366cc;
+          text-decoration:none;
+        }
+        .footer-links
+        {
+          padding-left:0;
+          list-style:none
+        }
+        .footer-links li
+        {
+          display:block
+        }
+        .footer-links a
+        {
+          color:#737373
+        }
+        .footer-links a:active,.footer-links a:focus,.footer-links a:hover
+        {
+          color:#3366cc;
+          text-decoration:none;
+        }
+        .footer-links.inline li
+        {
+          display:inline-block
+        }
+        .site-footer .social-icons
+        {
+          text-align:right
+        }
+        .site-footer .social-icons a
+        {
+          width:40px;
+          height:40px;
+          line-height:40px;
+          margin-left:6px;
+          margin-right:0;
+          border-radius:100%;
+          background-color:#33353d
+        }
+        .copyright-text
+        {
+          margin:0
+        }
+        @media (max-width:991px)
+        {
+          .site-footer [class^=col-]
+          {
+            margin-bottom:30px
+          }
+        }
+        @media (max-width:767px)
+        {
+          .site-footer
+          {
+            padding-bottom:0
+          }
+          .site-footer .copyright-text,.site-footer .social-icons
+          {
+            text-align:center
+          }
+        }
+        .social-icons
+        {
+          padding-left:0;
+          margin-bottom:0;
+          list-style:none
+        }
+        .social-icons li
+        {
+          display:inline-block;
+          margin-bottom:4px
+        }
+        .social-icons li.title
+        {
+          margin-right:15px;
+          text-transform:uppercase;
+          color:#96a2b2;
+          font-weight:700;
+          font-size:13px
+        }
+        .social-icons a{
+          background-color:#eceeef;
+          color:#818a91;
+          font-size:16px;
+          display:inline-block;
+          line-height:44px;
+          width:44px;
+          height:44px;
+          text-align:center;
+          margin-right:8px;
+          border-radius:100%;
+          -webkit-transition:all .2s linear;
+          -o-transition:all .2s linear;
+          transition:all .2s linear
+        }
+        .social-icons a:active,.social-icons a:focus,.social-icons a:hover
+        {
+          color:#fff;
+          background-color:#29aafe
+        }
+        .social-icons.size-sm a
+        {
+          line-height:34px;
+          height:34px;
+          width:34px;
+          font-size:14px
+        }
+        .social-icons a.facebook:hover
+        {
+          background-color:#3b5998
+        }
+        .social-icons a.twitter:hover
+        {
+          background-color:#00aced
+        }
+        .social-icons a.linkedin:hover
+        {
+          background-color:#007bb6
+        }
+        .social-icons a.dribbble:hover
+        {
+          background-color:#ea4c89
+        }
+        @media (max-width:767px)
+        {
+          .social-icons li.title
+          {
+            display:block;
+            margin-right:0;
+            font-weight:600
+          }
+        }
+        
+        </style>
+        
+          <script>
+          window.console = window.console || function(t) {};
+        </script>
+        
+          
+          
+          <script>
+          if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+          }
+        </script>
+        
+        
+        </head>
+        
+        <body translate="no" >
+          <!-- Site footer -->
+            <footer class="site-footer">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <p><img src="https://ml72sxuicgkm.i.optimole.com/3-WhWO0-MqPYihOd/w:auto/h:auto/q:auto/https://rocketlads.com/wp-content/uploads/2021/01/ctrlaltelite400.png" alt="logo"></p>
+                    <h6>About</h6>
+                    <p class="text-justify">Welcome to our game database.</p>
+                  </div>
+        
+                  <div class="col-xs-6 col-md-3">
+                    <h6>Categories</h6>
+                    <ul class="footer-links">
+                      <li><a href="http://scanfcode.com/category/c-language/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/category/front-end-development/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/category/back-end-development/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/category/java-programming-language/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/category/android/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/category/templates/">PLACEHOLDER</a></li>
+                    </ul>
+                  </div>
+        
+                  <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                      <li><a href="http://scanfcode.com/about/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/contact/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/contribute-at-scanfcode/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/privacy-policy/">PLACEHOLDER</a></li>
+                      <li><a href="http://scanfcode.com/sitemap/">PLACEHOLDER</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
+                 <a href="#">Scanfcode</a>.
+                    </p>
+                  </div>
+        
+                  <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                      <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                      <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                      <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                      <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+                    </ul>
+                  </div>
+                </div>
+              </div>
+        </footer>
+          </address>
+      </footer>
 </body>
-
 </html>
