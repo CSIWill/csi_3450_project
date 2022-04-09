@@ -88,7 +88,7 @@ for (let page_num = 1; page_num < 3; page_num++) {
 }
 
 // Games
-for (let page_num = 1; page_num < 3; page_num++) {
+for (let page_num = 1; page_num < 11; page_num++) {
   let options = {
     method: 'GET',
     url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
@@ -123,7 +123,14 @@ for (let page_num = 1; page_num < 3; page_num++) {
       };
       axios.request(moreOptions).then(function (response) {
         let gameDetailData = response.data;
-        let devInfo = [gameDetailData.developers[0].id, gameDetailData.developers[0].name];
+        console.log(gameDetailData.name,gameDetailData.id);
+        let devInfo = [];
+        if (gameDetailData.developers.length ==0) {
+          devInfo = [999999, 'Unavailable'];
+        }
+        else {
+          devInfo = [gameDetailData.developers[0].id, gameDetailData.developers[0].name];
+        }
         //developer create
         client.query(devCreate, devInfo, (err, res) => {
           // if (err) {
@@ -132,7 +139,14 @@ for (let page_num = 1; page_num < 3; page_num++) {
         });
         //game_developer create
         for (let j = 0; j < gameDetailData.platforms.length; j++) {
-          let gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, gameDetailData.developers[0].id];
+          let gameDev=[];
+          if (gameDetailData.developers.length ==0) {
+            gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, 999999];
+          }
+          else {
+            gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, gameDetailData.developers[0].id];
+          }
+          let g
           client.query(gameDevCreate, gameDev, (err, res) => {
           // if (err) {
           //   console.log(err.stack)
