@@ -29,12 +29,10 @@
     "node-fetch": "^2.0.0",
     "node-postgres": "^0.6.2",
     "nodemon": "^2.0.15",
-    "pg": "^8.7.3",
-    "pg-format": "^1.0.4",
-    // "node-fetch": "^2.6.7",
-    "nodemon": "^2.0.15",
+    "package.json": "^2.0.1",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "pg-format": "^1.0.4"
   }
 }
