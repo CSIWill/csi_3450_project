@@ -95,7 +95,6 @@ for (let page_num = 1; page_num < 3; page_num++) {
   };
   axios.request(options).then(function (response) {
     let gameData = response.data;
-    // console.log(gameData.next);
     // Populate Games
     let gameCreate = 'INSERT INTO GAMES(GAMES_ID,GAMES_TITLE,GAMES_SCORE,GAMES_AGE_RATING) VALUES($1,$2,$3,$4)';
     for (let i = 0; i < gameData.results.length; i++) {
@@ -164,18 +163,6 @@ for (let page_num = 1; page_num < 3; page_num++) {
           // }
         });
       }
-      // Game_Developer Table
-      // for (let j = 0; j < gameData.results[i].genres.length; j++) {
-      //   let gameID = gameData.results[i].id;
-
-      //   let developerID = gameData.results[i].genres[j].id;
-      //   let gameGenreQuery = 'INSERT INTO GAMES_developer(GAMES_ID,GENRE_ID) VALUES($1,$2)';
-      //   client.query(gameGenreQuery, [gameID, genreID], (err, res) => {
-      //     // if (err) {
-      //     //   console.log(err.stack)
-      //     // }
-      //   });
-      // }
     }
   }).catch(function (error) {
     console.error(error);
