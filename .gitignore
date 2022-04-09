@@ -2,3 +2,4 @@ node_modules
 *.ini
 package-lock.json
 config.env
+.env

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../public/css/stylesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <title>LOGIN</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/">My Home Page</a>
+            <a href="/game_info">Game Information</a>
+            <a href="/game_price">Game Price</a>
+            <!-- <a href="/users/login" id="login">Login</a> -->
+        </nav>
+        <div style="text-align: center;">
+            <!-- <form action="/search/" method="post">
+            <input type="text" name="userSearch" id="userSearch">
+            <label for="userSearch">Search</label>
+            <button type="submit">Submit</button>
+        </form> -->
+        </div>
+    </header>
+    <main>
+        <h1>Please Login</h1>
+
+        <ul style="text-align: center;">
+            <% if(messages.success_msg) { %>
+                <li>
+                    <%= messages.success_msg %>
+                </li>
+                <% } %>
+        </ul>
+
+        <ul style="text-align: center;">
+            <% if(messages.error){ %>
+                <li>
+                    <%= messages.error %>
+                </li>
+                <% } %>
+        </ul>
+
+        <form action="/users/login" method="POST">
+            <div>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div><br>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div><br>
+            <div>
+                <input type="submit" value="Login" />
+            </div><br>
+            <a href="/users/register" style="color: blue;">Not registered? Register Here</a>
+        </form>
+    </main>
+    <footer>
+        &copy;2022, Ctrl Alt Elite
+        <br>
+        Contact Us
+        <address>
+            <a id="email" href="mailto:weng2@oakland.edu">Email</a>
+        </address>
+    </footer>
+</body>
+
+</html>
