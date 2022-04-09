@@ -123,9 +123,9 @@ for (let page_num = 1; page_num < 11; page_num++) {
       };
       axios.request(moreOptions).then(function (response) {
         let gameDetailData = response.data;
-        console.log(gameDetailData.name,gameDetailData.id);
+        // console.log(gameDetailData.name, gameDetailData.id);
         let devInfo = [];
-        if (gameDetailData.developers.length ==0) {
+        if (gameDetailData.developers.length == 0) {
           devInfo = [999999, 'Unavailable'];
         }
         else {
@@ -139,8 +139,8 @@ for (let page_num = 1; page_num < 11; page_num++) {
         });
         //game_developer create
         for (let j = 0; j < gameDetailData.platforms.length; j++) {
-          let gameDev=[];
-          if (gameDetailData.developers.length ==0) {
+          let gameDev = [];
+          if (gameDetailData.developers.length == 0) {
             gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, 999999];
           }
           else {
@@ -148,10 +148,10 @@ for (let page_num = 1; page_num < 11; page_num++) {
           }
           let g
           client.query(gameDevCreate, gameDev, (err, res) => {
-          // if (err) {
-          //   console.log(err.stack)
-          // }
-        });
+            // if (err) {
+            //   console.log(err.stack)
+            // }
+          });
         }
       });
       // Link Games Stores and Platforms
@@ -163,40 +163,39 @@ for (let page_num = 1; page_num < 11; page_num++) {
       axios.request(storeOptions).then(function (response) {
         let gameStoreDetail = response.data;
         let platform = 0;
-        for (let j =0; j <gameStoreDetail.results.length; j++) {
+        for (let j = 0; j < gameStoreDetail.results.length; j++) {
           let store = gameStoreDetail.results[j].store_id;
           if (store == 1 || store == 5 || store == 11) {
-            platform = 4;
+            platform = [4];
           }
           // Set Microsoft store to only xbox series x/s
           else if (store == 2) {
-            platform = 186;
+            platform = [186, 1];
           }
           // Nintendo set to switch
           else if (store == 6) {
-            platform = 7;
+            platform = [7, 8, 9, 13, 83, 24, 43, 26, 79, 49, 105, 11, 10];
           }
-          else if (store == 7){
-            platform = 14;
+          else if (store == 7) {
+            platform = [14, 80];
           }
           // Playstation Store set to PS5
-          else if (store == 3){
-            platform = 187;
+          else if (store == 3) {
+            platform = [187, 18, 16, 15, 27, 19, 17];
           }
           // Set mobile apps to android
           else {
-            platform = 21; 
+            platform = [21, 3];
           }
-          let gameStoreInfo = [gameData.results[i].id,platform,store,gameStoreDetail.results[j].url];
-          client.query(gamePlatStore, gameStoreInfo, (err, res) => {
-            // if (err) {
-            //   console.log(err.stack)
-            // }
-          });
-           
+          for (let k = 0; k < platform.length; k++) {
+            let gameStoreInfo = [gameData.results[i].id, platform[k], store, gameStoreDetail.results[j].url];
+            client.query(gamePlatStore, gameStoreInfo, (err, res) => {
+              // if (err) {
+              //   console.log(err.stack)
+              // }
+            });
+          }
         }
-
-        
       });
 
       //  Game_Platform
