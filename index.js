@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
@@ -22,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize ejs Middleware
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use('/public', express.static(__dirname + '/public/'));
 
 // routes
@@ -148,7 +147,7 @@ app.post("/users/login",
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/");
+    return res.redirect("/users/dashboard");
   }
   return next();
 }

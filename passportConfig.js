@@ -1,11 +1,9 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
-
 const { Client } = require('pg');
-const res = require('express/lib/response');
+// const res = require('express/lib/response');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -28,13 +26,15 @@ function initialize(passport) {
 
                 console.log(results.rows);
 
+
                 if (results.rows.length > 0) {
                     const user = results.rows[0];
 
-                    bcrypt.compare(password, user.password, (err, isMatch) => {
+                    bcrypt.compare(password, user.user_password, (err, isMatch) => {
                         if (err) {
                             throw err;
                         }
+
                         if (isMatch) {
                             return done(null, user);
                         } else {
@@ -50,13 +50,14 @@ function initialize(passport) {
 
     passport.use(
         new LocalStrategy({
-            usernameField: "user_email",
-            passwordField: "user_password"
+            usernameField: "email",
+            passwordField: "password"
         },
+        
             autheticateUser
         )
     );
-    passport.serializeUser((user, done) => done(null, user.id));
+    passport.serializeUser((user, done) => done(null, user.user_id));
     passport.deserializeUser((id, done) => {
         client.query(`SELECT * FROM users WHERE user_id = $1`, [id], (err, results) => {
             if (err) {
