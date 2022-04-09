@@ -233,8 +233,7 @@ router.get("/", (req, res) => {
   };
   axios.request(options).then(function (response) {
     let gameData = response.data;
-    // console.log(gameData.results[0].added_by_status);
-    // console.log(gameData.results[0].parent_platforms);
+
     res.render("index.ejs", {
       games: gameData.results,
     });
