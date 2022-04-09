@@ -38,18 +38,18 @@ const client = new Client({
 
 client.connect();
 
-let options = {
-  method: 'GET',
-  url: 'https://api.rawg.io/api/games/3498/stores?key=' + process.env.YOUR_API_KEY
-};
-axios.request(options).then(function (response) {
-  let gameData = response.data;
-  console.log(response.data);
-  // console.log(gameData.results[0].added_by_status);
-  // console.log(gameData.results[0].parent_platforms);
-}).catch(function (error) {
-  console.error(error);
-});
+// let options = {
+//   method: 'GET',
+//   url: 'https://api.rawg.io/api/games/3498/stores?key=' + process.env.YOUR_API_KEY
+// };
+// axios.request(options).then(function (response) {
+//   let gameData = response.data;
+//   console.log(response.data);
+//   // console.log(gameData.results[0].added_by_status);
+//   // console.log(gameData.results[0].parent_platforms);
+// }).catch(function (error) {
+//   console.error(error);
+// });
 
 // Setup server ports
 const PORT = process.env.PORT || 3000;

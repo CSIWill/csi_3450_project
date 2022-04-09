@@ -140,6 +140,50 @@ for (let page_num = 1; page_num < 3; page_num++) {
         });
         }
       });
+      // Link Games Stores and Platforms
+      let gamePlatStore = 'INSERT INTO GAME_PLATFORM_AT_STORE(GAMES_ID,PLATFORM_ID,STORE_ID,STORE_URL) VALUES ($1,$2,$3,$4)';
+      let storeOptions = {
+        method: 'GET',
+        url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '/stores?key=' + process.env.YOUR_API_KEY
+      };
+      axios.request(storeOptions).then(function (response) {
+        let gameStoreDetail = response.data;
+        let platform = 0;
+        for (let j =0; j <gameStoreDetail.results.length; j++) {
+          let store = gameStoreDetail.results[j].store_id;
+          if (store == 1 || store == 5 || store == 11) {
+            platform = 4;
+          }
+          // Set Microsoft store to only xbox series x/s
+          else if (store == 2) {
+            platform = 186;
+          }
+          // Nintendo set to switch
+          else if (store == 6) {
+            platform = 7;
+          }
+          else if (store == 7){
+            platform = 14;
+          }
+          // Playstation Store set to PS5
+          else if (store == 3){
+            platform = 187;
+          }
+          // Set mobile apps to android
+          else {
+            platform = 21; 
+          }
+          let gameStoreInfo = [gameData.results[i].id,platform,store,gameStoreDetail.results[j].url];
+          client.query(gamePlatStore, gameStoreInfo, (err, res) => {
+            // if (err) {
+            //   console.log(err.stack)
+            // }
+          });
+           
+        }
+
+        
+      });
 
       //  Game_Platform
       for (let j = 0; j < gameData.results[i].platforms.length; j++) {
