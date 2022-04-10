@@ -256,10 +256,8 @@ router.get('/game_price', async (req, res) => {
 
 router.post('/search/', async (req, response) => {
   let userQuery = await ['%' + req.body.userSearch + '%'];
-  // console.log(userQuery);
   let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
   let searchResults = [];
-  // console.log('SELECT results: ', res.body);
   client.query(searchNameQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
