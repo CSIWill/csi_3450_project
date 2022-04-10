@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/css/stylesheet.css">
+    <!-- <link rel="stylesheet" href="../../public/css/stylesheet.css"> -->
     <title>Results</title>
 </head>
 
@@ -27,13 +27,17 @@
         <h1>Search Results</h1>
         <% for(let i=0; i < games.length; i++) {%>
         <ul>
-            <h2><%= `${games[i].games_title}` %></h2>
+            <h2><a href="<%= '/game_info' + `/${games[i].games_id}`%>">
+                <%= `${games[i].games_title}` %>
+            </a>
+        </h2>
             <li>
-                <h3>Metacritic:<%= `${games[i].games_score}` %> </h3>
+                <h3>Metacritic: <%= `${games[i].games_score}` %> </h3>
+            </li>
+            <li>
+                <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %></h3>
             </li>
         </ul>
-        
-            
         <% } %>
     </main>
     <footer>

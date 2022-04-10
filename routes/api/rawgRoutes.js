@@ -88,7 +88,7 @@ client.connect();
 // }
 
 // // Games
-// for (let page_num = 1; page_num < 11; page_num++) {
+// for (let page_num = 1; page_num < 21; page_num++) {
 //   let options = {
 //     method: 'GET',
 //     url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
@@ -225,50 +225,5 @@ client.connect();
 //     console.error(error);
 //   });
 // }
-
-router.get("/", (req, res) => {
-  let options = {
-    method: 'GET',
-    url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=1'
-  };
-  axios.request(options).then(function (response) {
-    let gameData = response.data;
-
-    res.render("index.ejs", {
-      games: gameData.results,
-    });
-  }).catch(function (error) {
-    console.error(error);
-  });
-});
-
-router.get('/login', async (req, res) => {
-  res.render('./html/login');
-});
-
-router.get('/game_info', async (req, res) => {
-  res.render('./html/game_info');
-});
-
-router.get('/game_price', async (req, res) => {
-  res.render('./html/game_price');
-});
-
-router.post('/search/', async (req, response) => {
-  let userQuery = await ['%' + req.body.userSearch + '%'];
-  let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
-  let searchResults = [];
-  client.query(searchNameQuery, userQuery, async (err, res) => {
-    if (err) {
-      console.log(err.stack)
-      searchResults = ['No Results Found','No Results Found','No Results Found'];
-    } else {
-      searchResults = res.rows;
-      response.render('./html/results', {
-        games: searchResults,
-      });
-    }
-  })
-});
 
 module.exports = router;

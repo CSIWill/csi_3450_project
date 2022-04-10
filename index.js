@@ -13,6 +13,7 @@ dotenv.config({ path: "./config.env" });
 const axios = require("axios").default;
 const { json } = require('express/lib/response');
 const rawgRoutes = require('./routes/api/rawgRoutes');
+const gameRoutes = require('./routes/api/gameRoutes');
 // Create express app
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/public', express.static(__dirname + '/public/'));
 
 // router to use api
 app.use(rawgRoutes);
+app.use(gameRoutes);
 
 // connect to database
 const { Client } = require('pg');
