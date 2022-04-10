@@ -24,7 +24,17 @@
         </form>
     </header>
     <main>
-
+        <h1>Search Results</h1>
+        <% for(let i=0; i < games.length; i++) {%>
+        <ul>
+            <h2><%= `${games[i].games_title}` %></h2>
+            <li>
+                <h3>Metacritic:<%= `${games[i].games_score}` %> </h3>
+            </li>
+        </ul>
+        
+            
+        <% } %>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
