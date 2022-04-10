@@ -172,14 +172,14 @@ client.connect();
 //           else if (store == 2) {
 //             platform = [186, 1];
 //           }
-//           // Nintendo set to switch
+//           // Nintendo set
 //           else if (store == 6) {
 //             platform = [7, 8, 9, 13, 83, 24, 43, 26, 79, 49, 105, 11, 10];
 //           }
 //           else if (store == 7) {
 //             platform = [14, 80];
 //           }
-//           // Playstation Store set to PS5
+//           // Playstation Store
 //           else if (store == 3) {
 //             platform = [187, 18, 16, 15, 27, 19, 17];
 //           }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/css/stylesheet.css">
+    <!-- <link rel="stylesheet" href="../../public/css/stylesheet.css"> -->
     <title>Game Information</title>
 </head>
 
@@ -24,17 +24,52 @@
         </form>
     </header>
     <main>
-        <section>
-            <h1>Game Title</h1>
-            <h2>Supported Systems</h2>
-            <div>
+
+        <h1>
+            <%= `${games[0].games_title}` %>
+        </h1>
+        <h2>Supported Systems</h2>
+        <% for(let i=0; i < games.length; i++) {%>
+            <ul>
+                <li>
+                    <%= `${games[i].platform_name}` %>
+                    <a href="<%= `${games[i].store_url}`%>">
+                        <%= `${games[i].store_name}`%> 
+                    </a>
+                </li>
+            </ul>
+        <% } %>
+
+        <h2>Additional Information</h2>
+        <ul>
+            <li>
+                Released Date: 
+                <%= `${games[0].game_release_date}` %>
+            </li> 
+            <li>
+                Developer: 
+                <%= `${games[0].dev_name}` %>
+            </li>
+            <li>
+                Metacritic Score: 
+                <%= `${games[0].games_score}` %>
+            </li>
+            <li>
+                ESRB Rating: 
+                <%= `${games[0].games_age_rating}` %>
+            </li> 
+            <li>
                 <ul>
-                    <li>developer</li>
-                    <li>release date</li>
-                    <li>game information</li>
+                    <h3>Genre: </h3> 
+                    <% for(let i=0; i < games_genre.length; i++) {%>
+                    <li>
+                        <%= `${games_genre[i].genre_name}` %>
+                    </li>
+                    <% } %>
                 </ul>
-            </div>
-        </section>
+            </li>
+        </ul>
+
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite

@@ -36,11 +36,6 @@ router.get('/login', async (req, res) => {
   res.render('./html/login');
 });
 
-router.get('/game_info', async (req, res) => {
-  // console.log(req);
-  res.render('./html/game_info');
-});
-
 router.get('/game_price', async (req, res) => {
   res.render('./html/game_price');
 });
@@ -84,10 +79,30 @@ router.post('/detailSearch/', async (req, response) => {
   })
 });
 
-router.get('/game_info/:id', function (req, res) {
-  console.log(req.params.id);
-  res.render('/game_info', {
-    games: req.params.id
+router.get('/game_info/:id', function (req, response) {
+  // console.log(req.params.id);
+  let query1 = 'DROP VIEW GAME_DETAILS';
+  let queryDetails = 'CREATE VIEW GAME_DETAILS AS SELECT * FROM GAMES NATURAL JOIN GAME_PLATFORM NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN GAME_PLATFORM_AT_STORE NATURAL JOIN PLATFORM NATURAL JOIN DEVELOPER NATURAL JOIN STORE WHERE GAMES_ID =' + req.params.id;
+  let query3 = 'SELECT * FROM GAME_DETAILS';
+  let query4 = 'DROP VIEW GAME_DETAILS_GENRE';
+  let queryGenre = 'CREATE VIEW GAME_DETAILS_GENRE AS SELECT * FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE WHERE GAMES_ID = ' + req.params.id;
+  let query6 = 'SELECT * FROM GAME_DETAILS_GENRE';
+  client.query(query1, async (err, res1) => {
+    client.query(queryDetails, async (err, res2) => {
+      client.query(query3, async (err, res3) => {
+        client.query(query4, async (err, res4) => {
+          client.query(queryGenre, async (err, res5) => {
+            client.query(query6, async (err, res6) => {
+              // console.log(res6.rows);
+              response.render('./html/game_info', {
+                games: res3.rows,
+                games_genre: res6.rows
+              });
+            });
+          });
+        });
+      });
+    });
   });
 });
 

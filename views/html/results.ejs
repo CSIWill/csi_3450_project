@@ -26,19 +26,22 @@
     <main>
         <h1>Search Results</h1>
         <% for(let i=0; i < games.length; i++) {%>
-        <ul>
-            <h2><a href="<%= '/game_info' + `/${games[i].games_id}`%>">
-                <%= `${games[i].games_title}` %>
-            </a>
-        </h2>
-            <li>
-                <h3>Metacritic: <%= `${games[i].games_score}` %> </h3>
-            </li>
-            <li>
-                <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %></h3>
-            </li>
-        </ul>
-        <% } %>
+            <ul>
+                <h2>
+                    <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
+                        <%= `${games[i].games_title}` %>
+                    </a>
+                </h2>
+                <li>
+                    <h3>Metacritic: <%= `${games[i].games_score}` %>
+                    </h3>
+                </li>
+                <li>
+                    <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %>
+                    </h3>
+                </li>
+            </ul>
+            <% } %>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
