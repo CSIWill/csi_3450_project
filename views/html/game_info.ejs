@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../../public/css/stylesheet.css"> -->
+    <link rel="stylesheet" href="../../public/css/stylesheet.css">
     <title>Game Information</title>
 </head>
 
@@ -13,8 +13,7 @@
     <header>
         <nav>
             <a href="/">My Home Page</a>
-            <a href="/game_info">Game Information</a>
-            <a href="/game_price">Game Price</a>
+            <a href="/advancedSearch">Advance Search</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
         <form action="/search/" method="post">
@@ -33,42 +32,42 @@
             <ul>
                 <li>
                     <%= `${games[i].platform_name}` %>
-                    <a href="<%= `${games[i].store_url}`%>">
-                        <%= `${games[i].store_name}`%> 
-                    </a>
+                        <a href="<%= `${games[i].store_url}`%>">
+                            <%= `${games[i].store_name}`%>
+                        </a>
                 </li>
             </ul>
-        <% } %>
+            <% } %>
 
-        <h2>Additional Information</h2>
-        <ul>
-            <li>
-                Released Date: 
-                <%= `${games[0].game_release_date}` %>
-            </li> 
-            <li>
-                Developer: 
-                <%= `${games[0].dev_name}` %>
-            </li>
-            <li>
-                Metacritic Score: 
-                <%= `${games[0].games_score}` %>
-            </li>
-            <li>
-                ESRB Rating: 
-                <%= `${games[0].games_age_rating}` %>
-            </li> 
-            <li>
+                <h2>Additional Information</h2>
                 <ul>
-                    <h3>Genre: </h3> 
-                    <% for(let i=0; i < games_genre.length; i++) {%>
                     <li>
-                        <%= `${games_genre[i].genre_name}` %>
+                        Released Date:
+                        <%= `${games[0].game_release_date}` %>
                     </li>
-                    <% } %>
+                    <li>
+                        Developer:
+                        <%= `${games[0].dev_name}` %>
+                    </li>
+                    <li>
+                        Metacritic Score:
+                        <%= `${games[0].games_score}` %>
+                    </li>
+                    <li>
+                        ESRB Rating:
+                        <%= `${games[0].games_age_rating}` %>
+                    </li>
+                    <li>
+                        <ul>
+                            <h3>Genre: </h3>
+                            <% for(let i=0; i < games_genre.length; i++) {%>
+                                <li>
+                                    <%= `${games_genre[i].genre_name}` %>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
-        </ul>
 
     </main>
     <footer>

@@ -13,8 +13,7 @@
     <header>
         <nav>
             <a href="/">My Home Page</a>
-            <a href="/game_info">Game Information</a>
-            <a href="/game_price">Game Price</a>
+            <a href="/advancedSearch">Advance Search</a>
             <a href="/users/login" id="login">Login</a>
             <a href="/users/logout" id="login">Logout</a>
         </nav>
@@ -39,9 +38,11 @@
                         </li>
                         <li>
                             <h3>Metacritic:</h3>
-                            <li>
-                                <%= `${games[i].metacritic}` %>
-                            </li>
+                            <ul>
+                                <li>
+                                    <%= `${games[i].metacritic}` %>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <h3>Genres:</h3>
@@ -51,7 +52,7 @@
                                         <%= `${games[i].genres[j].name}` %>
                                     </li>
                                     <% }%>
-                            </ul>           
+                            </ul>
                         </li>
                         <li>
                             <h3>Platforms: </h3>

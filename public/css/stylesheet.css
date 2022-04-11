@@ -38,7 +38,7 @@ form {
     text-align: center;
 }
 
-a:link {
+/* a:link {
     color: rgb(255, 255, 255);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -51,7 +51,7 @@ a:visited {
 
 a:hover {
     color: rgb(240, 128, 128);
-}
+} */
 
 img {
     width: 20%;
