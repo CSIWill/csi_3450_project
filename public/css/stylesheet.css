@@ -4,6 +4,12 @@
     padding-right: 1%;
 }
 
+#loggedin {
+    float: right;
+    text-align: center;
+    padding-right: 1%;
+}
+
 nav {
     background-color: #000000;
     display: inline-block;

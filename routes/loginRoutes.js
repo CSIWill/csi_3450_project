@@ -72,6 +72,57 @@ router.get("/users/resetpassword", checkNotAuthenticated, (req, res) => {
     res.render("resetpassword");
 });
 
+router.get("/users/deleteaccount", checkNotAuthenticated, (req, res) => {
+    res.render("deleteaccount");
+});
+
+
+
+router.post("/users/deleteaccount", async (req, res) => {
+    let { email, password } = req.body;
+
+    console.log({
+        email,
+        password,
+    });
+
+    let errors = [];
+
+    if (!email || !password) {
+        errors.push({ message: "Please enter all fields" });
+    }
+
+    if (errors.length > 0) {
+        res.render("deleteaccount", { errors });
+    } else {
+
+        client.query(
+            `SELECT * FROM users
+          WHERE user_email = $1`, [email], (err, results) => {
+            if (err) {
+                throw err;
+            };
+            console.log(results.rows);
+
+            client.query(
+                `DELETE FROM users
+                WHERE user_email = $1`,
+                [email],
+                (err, results) => {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log(results.rows);
+                    req.flash('success_msg', "You have deleted your account");
+                    res.redirect("/users/register");
+                }
+            );
+        }
+
+        );
+    }
+});
+
 router.post("/users/resetpassword", async (req, res) => {
     let { email, password, password3, password4 } = req.body;
 
