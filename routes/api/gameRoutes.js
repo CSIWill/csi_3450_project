@@ -44,25 +44,63 @@ router.get('/advancedSearch', async (req, res) => {
   res.render('./html/search')
 });
 
+// router.get('/search/', async (req, response) => {
+//   let userQuery = await ['%' + req.body.userSearch + '%'];
+//   let query1 = 'DROP VIEW IF EXISTS GAME_SEARCH_RESULTS';
+//   let searchNameQuery = 'CREATE VIEW GAME_SEARCH_RESULTS AS SELECT * FROM GAMES';
+//   // let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
+//   let viewQuery = 'SELECT * FROM GAME_SEARCH_RESULTS';
+//   let searchResults = [];
+//   client.query(query1, async (err, res1) => {
+//     client.query(searchNameQuery, userQuery, async (err, res2) => {
+//       client.query(viewQuery, async (err, res3) => {
+//         if (err) {
+//           console.log(err.stack)
+//           searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
+//         } else {
+//           searchResults = res3.rows;
+//           response.render('./html/results', {
+//             games: searchResults,
+//           });
+//         }
+//       });
+//     });
+//   });
+
+//   // client.query(searchNameQuery, userQuery, async (err, res2) => {
+//   //   if (err) {
+//   //     console.log(err.stack)
+//   //     searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
+//   //   } else {
+//   //     searchResults = res2.rows;
+//   //     response.render('./html/results', {
+//   //       games: searchResults,
+//   //     });
+//   //   }
+//   // });
+// });
+
+let userQuery = '';
 router.post('/search/', async (req, response) => {
-  let userQuery = await ['%' + req.body.userSearch + '%'];
+  userQuery = await ['%' + req.body.userSearch + '%'];
+
   let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
   let searchResults = [];
-  client.query(searchNameQuery, userQuery, async (err, res) => {
+  client.query(searchNameQuery, userQuery, async (err, res2) => {
     if (err) {
       console.log(err.stack)
       searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
     } else {
-      searchResults = res.rows;
+      searchResults = res2.rows;
       response.render('./html/results', {
         games: searchResults,
       });
     }
-  })
+  });
 });
 
 router.post('/detailSearch/', async (req, response) => {
-  let userQuery = await ['%' + req.body.userSearch + '%'];
+  userQuery = await ['%' + req.body.userSearch + '%'];
   await console.log(req.body);
   let query1 = 'DROP VIEW IF EXISTS GAME_SEARCH';
   // let searchQuery = 'CREATE VIEW GAME_SEARCH AS SELECT * FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN GENRE NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1';
@@ -102,6 +140,9 @@ router.post('/detailSearch/', async (req, response) => {
   if (await req.body.nintendo_switch == 'on') {
     searchQuery = searchQuery + `AND PLATFORM_NAME = 'Nintendo Switch'`;
   };
+  // if (await req.body.action == 'on' || await req.body.adventure == 'on' || await req.body.platformer == 'on' || await req.body.rpg == 'on' || await req.body.shooter == 'on') {
+  //   // searchQuery =;
+  // };
   client.query(searchQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
@@ -114,15 +155,22 @@ router.post('/detailSearch/', async (req, response) => {
       });
     }
   })
+  client.query(query1, async (err, res) => {
+    client.query(searchQuery, userQuery, async (err, res) => {
+      client.query(viewQuery, async (err, res) => {
+
+      })
+    })
+  })
 });
 
 
-router.get('/game_info/:id', function (req, response) {
+router.get('/game_info/:id', (req, response) => {
   // console.log(req.params.id);
-  let query1 = 'DROP VIEW GAME_DETAILS';
+  let query1 = 'DROP VIEW IF EXISTS GAME_DETAILS';
   let queryDetails = 'CREATE VIEW GAME_DETAILS AS SELECT * FROM GAMES NATURAL JOIN GAME_PLATFORM NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN GAME_PLATFORM_AT_STORE NATURAL JOIN PLATFORM NATURAL JOIN DEVELOPER NATURAL JOIN STORE WHERE GAMES_ID =' + req.params.id;
   let query3 = 'SELECT * FROM GAME_DETAILS';
-  let query4 = 'DROP VIEW GAME_DETAILS_GENRE';
+  let query4 = 'DROP VIEW IF EXISTS GAME_DETAILS_GENRE';
   let queryGenre = 'CREATE VIEW GAME_DETAILS_GENRE AS SELECT * FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE WHERE GAMES_ID = ' + req.params.id;
   let query6 = 'SELECT * FROM GAME_DETAILS_GENRE';
   client.query(query1, async (err, res1) => {
@@ -140,6 +188,40 @@ router.get('/game_info/:id', function (req, response) {
         });
       });
     });
+  });
+});
+
+router.post('/sort/', async (req, response) => {
+  // console.log(req.body);
+  // console.log(req.body.sort_type);
+  // console.log(req.body.sort_order);
+  // console.log(userQuery);
+  let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
+  if (req.body.sort_type == 'alphabetical' && req.body.sort_order == 'ascending') {
+    searchNameQueryOptions = searchNameQuery + ' ORDER BY GAMES_TITLE ASC';
+  }
+  if (req.body.sort_type == 'alphabetical' && req.body.sort_order == 'descending') {
+    searchNameQueryOptions = searchNameQuery + ' ORDER BY GAMES_TITLE DESC';
+  }
+  if (req.body.sort_type == 'metacritic_score' && req.body.sort_order == 'ascending') {
+    searchNameQueryOptions = searchNameQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE ASC';
+  }
+  if (req.body.sort_type == 'metacritic_score' && req.body.sort_order == 'descending') {
+    searchNameQueryOptions = searchNameQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE DESC';
+  }
+  let searchResults = [];
+  console.log(searchNameQueryOptions);
+  client.query(searchNameQueryOptions, userQuery, async (err, res) => {
+    if (err) {
+      console.log(err.stack)
+      searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
+    } else {
+      // console.log(res.rows);
+      searchResults = res.rows;
+      response.render('./html/results', {
+        games: searchResults,
+      });
+    }
   });
 });
 
