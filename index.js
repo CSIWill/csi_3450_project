@@ -1,10 +1,6 @@
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
-// const session = require("express-session");
-// const flash = require("express-flash");
-// const passport = require("passport");
-// const bcrypt = require("bcrypt");
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const axios = require("axios").default;
