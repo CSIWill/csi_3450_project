@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
-const session = require("express-session");
-const flash = require("express-flash");
-const passport = require("passport");
-const bcrypt = require("bcrypt");
+// const session = require("express-session");
+// const flash = require("express-flash");
+// const passport = require("passport");
+// const bcrypt = require("bcrypt");
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const axios = require("axios").default;
@@ -58,6 +58,10 @@ app.get("/users/login", (req, res) => {
 
 app.get("/users/dashboard", (req, res) => {
   res.render("dashboard");
+})
+
+app.get("/users/resetpassword", (req, res) => {
+  res.render("resetpassword");
 })
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

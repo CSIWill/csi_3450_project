@@ -68,6 +68,68 @@ router.get("/users/logout", (req, res) => {
     res.redirect("/users/login");
 })
 
+router.get("/users/resetpassword", checkNotAuthenticated, (req, res) => {
+    res.render("resetpassword");
+});
+
+router.post("/users/resetpassword", async (req, res) => {
+    let { email, password, password3, password4 } = req.body;
+
+    console.log({
+        email,
+        password,
+        password3,
+        password4
+    });
+
+    let errors = [];
+
+    if (!email || !password || !password3 || !password4) {
+        errors.push({ message: "Please enter all fields" });
+    }
+
+    if (password.length < 6) {
+        errors.push({ message: "Password should be at least 6 characters" });
+    }
+    if (password3 != password4) {
+        errors.push({ message: "Passwords do not match" });
+    }
+
+    if (errors.length > 0) {
+        res.render("resetpassword", { errors });
+    } else {
+        let hashedPassword = await bcrypt.hash(password3, 10);
+        console.log(hashedPassword);
+
+        client.query(
+            `SELECT * FROM users
+          WHERE user_email = $1`, [email], (err, results) => {
+            if (err) {
+                throw err;
+            };
+            console.log(results.rows);
+
+            client.query(
+                `UPDATE users
+                SET user_password = $2
+                WHERE user_email = $1`,
+                [email, hashedPassword],
+                (err, results) => {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log(results.rows);
+                    req.flash('success_msg', "You have successfully changed your password");
+                    res.redirect("/users/login");
+                }
+            );
+        }
+
+        );
+    }
+});
+
+
 router.post("/users/register", async (req, res) => {
     let { email, password, password2 } = req.body;
 
