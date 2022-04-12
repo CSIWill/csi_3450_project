@@ -112,6 +112,12 @@ router.post('/detailSearch/', async (req, response) => {
   if (Array.isArray(req.body.genre) == false) {
     req.body.genre = [req.body.genre];
   }
+  if (req.body.platform == undefined) {
+    req.body.platform =[''] ;
+  }
+  if (req.body.genre == undefined) {
+    req.body.genre =[''] ;
+  }
   // console.log(Array.isArray(req.body.platform));
   // console.log(req.body.platform);
   // console.log(req.body.genre)
@@ -135,21 +141,27 @@ router.post('/detailSearch/', async (req, response) => {
         advancedSearchQuery = advancedSearchQuery + ')';
       }
     }
-    // if (req.body.platform.length > 0) {
-    //   searchQuery = ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
-    //   for (let i = 1; i < req.body.platform.length; i++) {
-    //     let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
-    //     searchQuery = searchQuery + ' OR PLATFORM_NAME ILIKE ' +  await ["'%" + req.body.platform[i] + "%'"];
-    //   }
-    //   searchQuery = searchQuery + ')';
-    // }
   }
   if (req.body.search_type == 'developer') {
-    advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE DEV_NAME ILIKE $1';
+    advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
+    advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE WHERE DEV_NAME ILIKE $1 AND (GENRE_NAME ILIKE '+ await ["'%" + req.body.genre[0] + "%'"]; 
+    for (let i = 1; i < req.body.genre.length; i++) {
+      let nextGenre = await ['"%' + req.body.genre[i] + '%"'];
+      advancedSearchQuery = advancedSearchQuery + ' OR GENRE_NAME ILIKE ' +  await ["'%" + req.body.genre[i] + "%'"];
+    }
+    advancedSearchQuery = advancedSearchQuery + ')';
+    if (req.body.platform.length > 0) {
+      advancedSearchQuery = advancedSearchQuery + ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
+      for (let i = 1; i < req.body.platform.length; i++) {
+        let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
+        advancedSearchQuery = advancedSearchQuery + ' OR PLATFORM_NAME ILIKE ' +  await ["'%" + req.body.platform[i] + "%'"];
+      }
+      advancedSearchQuery = advancedSearchQuery + ')';
+    }
   }
   let searchResults = [];
   advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_ID IN (' + advancedSearchQuery + ')';
-  // console.log(searchQuery);
+  console.log(advancedSearchQuery);
   client.query(advancedSearchQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
