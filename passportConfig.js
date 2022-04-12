@@ -60,10 +60,12 @@ function initialize(passport) {
     passport.serializeUser((user, done) => done(null, user.user_id));
     passport.deserializeUser((id, done) => {
         client.query(`SELECT * FROM users WHERE user_id = $1`, [id], (err, results) => {
-            if (err) {
-                throw err;
+            if (err) throw err;
+            if (results.rows[0]){
+                return done(null, results.rows[0]);
+            } else {
+              return done(null, false)
             }
-            return done(null, results.rows[0]);
         });
     });
 }

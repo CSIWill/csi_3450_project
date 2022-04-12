@@ -59,7 +59,7 @@ router.get("/users/login", checkAuthenticated, (req, res) => {
 })
 
 router.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
-    res.render("dashboard", { user: req.user.email });
+    res.render("dashboard", { user: req.user.user_email });
 })
 
 router.get("/users/logout", checkNotAuthenticated, (req, res) => {
