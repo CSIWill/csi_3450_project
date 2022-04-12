@@ -13,51 +13,70 @@
     <header>
         <nav>
             <a href="/">My Home Page</a>
-            <a href="/advancedSearch">Advance Search</a>
+            <a href="/advancedSearch">Advanced Search</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
         <h1>Advanced Search </h1>
         <form action="/detailSearch/" method="post">
             <input type="text" name="userSearch" id="userSearch">
             <label for="userSearch">Search</label>
+            <select name="search_type" id="search_type" required>
+                <option value="game_title">Game</option>
+                <option value="developer">Developer</option>
+            </select>
             <h2>Genre </h2>
 
-                <input type="checkbox" name="action" id="genre">
-                <label for="action"> Action </label>
+            <input type="checkbox" name="genre" id="action" value="action">
+            <label for="action"> Action </label>
 
-                <input type="checkbox" name="adventure" id="genre">
-                <label for="adventure"> Adventure </label>
+            <input type="checkbox" name="genre" id="adventure" value="adventure">
+            <label for="adventure"> Adventure </label>
 
-                <input type="checkbox" name="platformer" id="genre">
-                <label for="platformer"> Platformer </label>
+            <input type="checkbox" name="genre" id="platformer" value="platformer">
+            <label for="platformer"> Platformer </label>
 
-                <input type="checkbox" name="rpg" id="genre">
-                <label for="rpg"> RPG </label>
+            <input type="checkbox" name="genre" id="rpg" value="rpg">
+            <label for="rpg"> RPG </label>
 
-                <input type="checkbox" name="shooter" id="genre">
-                <label for="shooter"> Shooter </label>
+            <input type="checkbox" name="genre" id="shooter" value="shooter">
+            <label for="shooter"> Shooter </label>
+
+            <input type="checkbox" name="genre" id="all_genres" value="any">
+            <label for="all_genres"> Any </label>
 
             <h2>Platform </h2>
 
-                <input type="checkbox" name="pc" id="platform">
-                <label for="pc"> PC</label>
-                
-                <input type="checkbox" name="xbox_one" id="platform">
-                <label for="xbox_one"> XBOX One </label>
-                
-                <input type="checkbox" name="xbox_series" id="platform">
-                <label for="xbox_series"> XBOX Series X/S </label>
-                
-                <input type="checkbox" name="ps5" id="platform">
-                <label for="ps5"> Playstation 5 </label>
-                
-                <input type="checkbox" name="ps4" id="platform">
-                <label for="ps4"> Playstation 4 </label>
-                
-                <input type="checkbox" name="nintendo_switch" id="platform">
-                <label for="nintendo"> Nintendo Switch </label>
+            <input type="checkbox" name="platform" id="pc" value="pc">
+            <label for="pc"> PC</label>
 
-            <h3><button type="submit">Submit</button></h3>
+            <input type="checkbox" name="platform" id="xbox_one" value="xbox one">
+            <label for="xbox_one"> XBOX One </label>
+
+            <input type="checkbox" name="platform" id="xbox_series" value="xbox series">
+            <label for="xbox_series"> XBOX Series X/S </label>
+
+            <input type="checkbox" name="platform" id="ps5" value="Playstation 5">
+            <label for="ps5"> Playstation 5 </label>
+
+            <input type="checkbox" name="platform" id="ps4" value="Playstation 4">
+            <label for="ps4"> Playstation 4 </label>
+
+            <input type="checkbox" name="platform" id="nintendo_switch" value="nintendo switch">
+            <label for="nintendo"> Nintendo Switch </label>
+
+            <input type="checkbox" name="platform" id="all_platforms" value="any">
+            <label for="all_platforms"> Any </label>
+
+            <!-- <input type="radio" name="sort_type" id="alphabetical" value="alphabetical" required>
+            <label for="alphabetical">By Alphabetical</label>
+            <input type="radio" name="sort_type" id="metacritic_score" value="metacritic_score" required>
+            <label for="metacritc">By Metacritic</label>
+            <select name="sort_order" id="sort_order">
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+            </select> -->
+
+        <h3><button type="submit">Submit</button></h3>
         </form>
     </header>
     <main>

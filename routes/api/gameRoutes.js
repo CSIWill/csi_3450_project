@@ -7,6 +7,7 @@ const reqOptions = { 'mode': 'cors', headers: { 'Access-Control-Allow-Origin': '
 const { json } = require('express/lib/response');
 const axios = require("axios").default;
 const { Client } = require('pg');
+const { string } = require("pg-format");
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -99,68 +100,67 @@ router.post('/search/', async (req, response) => {
   });
 });
 
+let advancedSearchQuery = '';
 router.post('/detailSearch/', async (req, response) => {
   userQuery = await ['%' + req.body.userSearch + '%'];
-  await console.log(req.body);
-  let query1 = 'DROP VIEW IF EXISTS GAME_SEARCH';
-  // let searchQuery = 'CREATE VIEW GAME_SEARCH AS SELECT * FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN GENRE NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1';
-  let viewQuery = 'SELECT * FROM GAME_SEARCH';
-  let searchQuery = 'SELECT * FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN GENRE NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1';
+  // await console.log(req);
+  // await console.log(req.body);
+  // console.log(Array.isArray(req.body.platform)); 
+  if (Array.isArray(req.body.platform) == false) {
+    req.body.platform = [req.body.platform];
+  }
+  if (Array.isArray(req.body.genre) == false) {
+    req.body.genre = [req.body.genre];
+  }
+  // console.log(Array.isArray(req.body.platform));
+  // console.log(req.body.platform);
+  // console.log(req.body.genre)
+  if (req.body.search_type == 'game_title') {
+    advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
+    // searchQuery = searchQuery + 'AND GAME_GENRE LIKE '
+    if (req.body.genre.length > 0) {
+      // searchQuery = searchQuery + ' AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
+      advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1 AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
+      for (let i = 1; i < req.body.genre.length; i++) {
+        let nextGenre = await ['"%' + req.body.genre[i] + '%"'];
+        advancedSearchQuery = advancedSearchQuery + ' OR GENRE_NAME ILIKE ' +  await ["'%" + req.body.genre[i] + "%'"];
+      }
+      advancedSearchQuery = advancedSearchQuery + ')';
+      if (req.body.platform.length > 0) {
+        advancedSearchQuery = advancedSearchQuery + ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
+        for (let i = 1; i < req.body.platform.length; i++) {
+          let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
+          advancedSearchQuery = advancedSearchQuery + ' OR PLATFORM_NAME ILIKE ' +  await ["'%" + req.body.platform[i] + "%'"];
+        }
+        advancedSearchQuery = advancedSearchQuery + ')';
+      }
+    }
+    // if (req.body.platform.length > 0) {
+    //   searchQuery = ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
+    //   for (let i = 1; i < req.body.platform.length; i++) {
+    //     let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
+    //     searchQuery = searchQuery + ' OR PLATFORM_NAME ILIKE ' +  await ["'%" + req.body.platform[i] + "%'"];
+    //   }
+    //   searchQuery = searchQuery + ')';
+    // }
+  }
+  if (req.body.search_type == 'developer') {
+    advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE DEV_NAME ILIKE $1';
+  }
   let searchResults = [];
-  if (await req.body.action == 'on') {
-    searchQuery = searchQuery + `AND GENRE_NAME = 'Action'`;
-  };
-  if (await req.body.adventure == 'on') {
-    searchQuery = searchQuery + `AND GENRE_NAME = 'Adventure'`;
-  };
-  if (await req.body.platformer == 'on') {
-    searchQuery = searchQuery + `AND GENRE_NAME = 'Platformer'`;
-  };
-  if (await req.body.rpg == 'on') {
-    searchQuery = searchQuery + `AND GENRE_NAME = 'RPG'`;
-  };
-  if (await req.body.shooter == 'on') {
-    searchQuery = searchQuery + `AND GENRE_NAME = 'Shooter'`;
-  };
-  if (await req.body.pc == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'PC'`;
-  };
-  if (await req.body.xbox_one == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'Xbox One'`;
-  };
-  if (await req.body.xbox_series == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'Xbox Series S/X'`;
-  };
-  if (await req.body.ps5 == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'PlayStation 5'`;
-  };
-  if (await req.body.ps4 == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'PlayStation 4'`;
-  };
-  if (await req.body.nintendo_switch == 'on') {
-    searchQuery = searchQuery + `AND PLATFORM_NAME = 'Nintendo Switch'`;
-  };
-  // if (await req.body.action == 'on' || await req.body.adventure == 'on' || await req.body.platformer == 'on' || await req.body.rpg == 'on' || await req.body.shooter == 'on') {
-  //   // searchQuery =;
-  // };
-  client.query(searchQuery, userQuery, async (err, res) => {
+  advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_ID IN (' + advancedSearchQuery + ')';
+  // console.log(searchQuery);
+  client.query(advancedSearchQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
       searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
     } else {
       searchResults = res.rows;
-      console.log(searchResults);
-      response.render('./html/results', {
+      // console.log(searchResults);
+      response.render('./html/advancedResults', {
         games: searchResults,
       });
     }
-  })
-  client.query(query1, async (err, res) => {
-    client.query(searchQuery, userQuery, async (err, res) => {
-      client.query(viewQuery, async (err, res) => {
-
-      })
-    })
   })
 });
 
@@ -210,7 +210,39 @@ router.post('/sort/', async (req, response) => {
     searchNameQueryOptions = searchNameQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE DESC';
   }
   let searchResults = [];
-  console.log(searchNameQueryOptions);
+  // console.log(searchNameQueryOptions);
+  client.query(searchNameQueryOptions, userQuery, async (err, res) => {
+    if (err) {
+      console.log(err.stack)
+      searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
+    } else {
+      // console.log(res.rows);
+      searchResults = res.rows;
+      response.render('./html/results', {
+        games: searchResults,
+      });
+    }
+  });
+});
+router.post('/advancedSort/', async (req, response) => {
+  // console.log(req.body);
+  // console.log(req.body.sort_type);
+  // console.log(req.body.sort_order);
+  // console.log(userQuery);
+  if (req.body.sort_type == 'alphabetical' && req.body.sort_order == 'ascending') {
+    searchNameQueryOptions = advancedSearchQuery + ' ORDER BY GAMES_TITLE ASC';
+  }
+  if (req.body.sort_type == 'alphabetical' && req.body.sort_order == 'descending') {
+    searchNameQueryOptions = advancedSearchQuery + ' ORDER BY GAMES_TITLE DESC';
+  }
+  if (req.body.sort_type == 'metacritic_score' && req.body.sort_order == 'ascending') {
+    searchNameQueryOptions = advancedSearchQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE ASC';
+  }
+  if (req.body.sort_type == 'metacritic_score' && req.body.sort_order == 'descending') {
+    searchNameQueryOptions = advancedSearchQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE DESC';
+  }
+  let searchResults = [];
+  // console.log(searchNameQueryOptions);
   client.query(searchNameQueryOptions, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)

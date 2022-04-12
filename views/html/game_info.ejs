@@ -27,6 +27,9 @@
         <h1>
             <%= `${games[0].games_title}` %>
         </h1>
+        <form action="/addWishlist/" method="post">
+            <button type="submit">Add To Wishlist</button>
+        </form>
         <h2>Supported Systems</h2>
         <% for(let i=0; i < games.length; i++) {%>
             <ul>
