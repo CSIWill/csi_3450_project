@@ -161,7 +161,7 @@ router.post('/detailSearch/', async (req, response) => {
   }
   let searchResults = [];
   advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_ID IN (' + advancedSearchQuery + ')';
-  console.log(advancedSearchQuery);
+  // console.log(advancedSearchQuery);
   client.query(advancedSearchQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
