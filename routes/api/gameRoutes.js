@@ -45,42 +45,6 @@ router.get('/advancedSearch', async (req, res) => {
   res.render('./html/search')
 });
 
-// router.get('/search/', async (req, response) => {
-//   let userQuery = await ['%' + req.body.userSearch + '%'];
-//   let query1 = 'DROP VIEW IF EXISTS GAME_SEARCH_RESULTS';
-//   let searchNameQuery = 'CREATE VIEW GAME_SEARCH_RESULTS AS SELECT * FROM GAMES';
-//   // let searchNameQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
-//   let viewQuery = 'SELECT * FROM GAME_SEARCH_RESULTS';
-//   let searchResults = [];
-//   client.query(query1, async (err, res1) => {
-//     client.query(searchNameQuery, userQuery, async (err, res2) => {
-//       client.query(viewQuery, async (err, res3) => {
-//         if (err) {
-//           console.log(err.stack)
-//           searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
-//         } else {
-//           searchResults = res3.rows;
-//           response.render('./html/results', {
-//             games: searchResults,
-//           });
-//         }
-//       });
-//     });
-//   });
-
-//   // client.query(searchNameQuery, userQuery, async (err, res2) => {
-//   //   if (err) {
-//   //     console.log(err.stack)
-//   //     searchResults = ['No Results Found', 'No Results Found', 'No Results Found'];
-//   //   } else {
-//   //     searchResults = res2.rows;
-//   //     response.render('./html/results', {
-//   //       games: searchResults,
-//   //     });
-//   //   }
-//   // });
-// });
-
 let userQuery = '';
 router.post('/search/', async (req, response) => {
   userQuery = await ['%' + req.body.userSearch + '%'];
@@ -268,5 +232,22 @@ router.post('/advancedSort/', async (req, response) => {
     }
   });
 });
+
+router.post('/addWishlist/', async (req,response) => {
+  console.log(req.body);
+  let findUserID = 'SELECT USER_ID FROM USERS WHERE USER_EMAIL ILIKE' + await ["'%" + req.body.user + "%'"];
+  client.query(findUserID, async (err,res) => {
+    if (err) {
+      console.log(err.stack);
+    } else {
+      console.log(res.rows[0].user_id);
+      let addWishlistQuery = 'INSERT INTO WISHLIST(USER_ID, GAMES_ID, PLATFORM_ID) VALUES($1,$2,$3)';
+      let addWishlistEntry = [res.rows[0].user_id, req.body.game_id_num, req.body.platform_request];
+      client.query(addWishlistQuery, addWishlistEntry);
+    }
+  });
+  
+});
+
 
 module.exports = router;
