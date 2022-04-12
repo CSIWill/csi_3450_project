@@ -14,6 +14,7 @@
         <nav>
             <a href="/">My Home Page</a>
             <a href="/advancedSearch">Advanced Search</a>
+            <a href="/requestWishlist">Wishlist</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
         <form action="/search/" method="post">
@@ -29,19 +30,21 @@
         </h1>
         <form action="/addWishlist/" method="post" id="addWishlist">
             <label for="user_email">Your Email Address: </label> <br>
-            <input type="email" name="user" id="user_email"> <br>
+            <input type="text" name="user" id="user_email" required> <br>
             <label for="platform_request">Platform: </label> <br>
             <select name="platform_request" id="platform_request">
                 <% for(let i=0; i < games.length; i++) {%>
-                <option value="<%= `${games[i].platform_id}` %>">
-                    <%= `${games[i].platform_name}` %>
-                </option>
-                <% } %>
-            </select> <br>
-            <input type="hidden" name="game_id_num" value = "<%= `${games[0].games_id}`%>">
+                    <option value="<%= `${games[i].platform_id}`%>">
+                        <%= `${games[i].platform_name}` +  `(${games[i].store_name})`%>
+                    </option>
+                    <% } %>
+            </select>
+            
+             <br>
+            <input type="hidden" name="game_id_num" value="<%= `${games[0].games_id}`%>">
             <button type="submit">Add To Wishlist</button>
         </form>
-        <output form="addWishlist" > </output>
+        <output form="addWishlist"> </output>
         <h2>Supported Systems</h2>
         <% for(let i=0; i < games.length; i++) {%>
             <ul>

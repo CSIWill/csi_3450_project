@@ -15,11 +15,52 @@
         <nav>
             <a href="/">My Home Page</a>
             <a href="/advancedSearch">Advanced Search</a>
+            <a href="/requestWishlist">Wishlist</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
-
     </header>
     <main>
+        <h1>Your Wishlist</h1>
+        <form action="/wishlistSort/" method="post">
+            <input type="radio" name="sort_type" id="alphabetical" value="alphabetical" required>
+            <label for="alphabetical">By Alphabetical</label>
+            <input type="radio" name="sort_type" id="metacritic_score" value="metacritic_score" required>
+            <label for="metacritc">By Metacritic</label>
+            <label for="sort_order">Sort Order</label>
+            <select name="sort_order" id="sort_order">
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+            </select>
+            <button type="submit">Sort</button>
+        </form>
+        <ul>
+            <% for(let i=0; i < games.length; i++) {%>
+            <li>
+                <h2>
+                    <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
+                    <%= `${games[i].games_title}` + `   (${games[i].platform_name})`%>
+                </a>
+            </h2>
+                <ul>
+                    <li>
+                    <h3>Metacritic: <%= `${games[i].games_score}` %>
+                    </h3>
+                </li>
+                <li>
+                    <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %>
+                    </h3>
+                </li>
+                    <form action="/delWishlistItem/" method="post">
+                        <input type="hidden" name="user_id_num" value="<%=`${games[i].user_id}`%>">
+                        <input type="hidden" name="games_id_num" value="<%=`${games[i].games_id}`%>">
+                        <input type="hidden" name="platform_id_num" value="<%=`${games[i].platform_id}`%>">
+                        <button type="submit">Remove</button>
+                    </form>
+                </ul>
+            </li>
+            <% } %>
+        </ul>
+        
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
@@ -30,4 +71,3 @@
         </address>
     </footer>
 </body>
-</html>
