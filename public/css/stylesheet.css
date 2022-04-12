@@ -4,6 +4,12 @@
     padding-right: 1%;
 }
 
+#loggedin {
+    float: right;
+    text-align: center;
+    padding-right: 1%;
+}
+
 nav {
     background-color: #000000;
     display: inline-block;
@@ -17,7 +23,7 @@ span {
     padding-left: 10px;
     padding-right: 10px;
 }
-
+/*
 header {
     text-align: center;
 }
@@ -33,7 +39,7 @@ footer {
     text-align: center;
     padding: 2%;
 }
-
+*/
 form {
     text-align: center;
 }

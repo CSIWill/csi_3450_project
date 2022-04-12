@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const { Client } = require('pg');
-// const res = require('express/lib/response');
+const res = require('express/lib/response');
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -15,7 +15,7 @@ const client = new Client({
 client.connect();
 
 function initialize(passport) {
-    const autheticateUser = (email, password, done) => {
+    const authenticateUser = (email, password, done) => {
         client.query(
             `SELECT * FROM users WHERE user_email = $1`,
             [email],
@@ -54,7 +54,7 @@ function initialize(passport) {
             passwordField: "password"
         },
         
-            autheticateUser
+        authenticateUser
         )
     );
     passport.serializeUser((user, done) => done(null, user.user_id));
