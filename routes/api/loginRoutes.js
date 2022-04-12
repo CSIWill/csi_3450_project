@@ -6,19 +6,13 @@ const session = require("express-session");
 const flash = require("express-flash");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
-// const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 dotenv.config({ path: "../config.env" });
-// Create express app
-const app = express();
-
-// Initialize ejs Middleware
-app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
 
 // connect to database
 const { Client } = require('pg');
-const initializePassport = require("../passportConfig");
+const initializePassport = require("../../passportConfig");
 const res = require('express/lib/response');
 const { Router } = require('express');
 
@@ -46,20 +40,16 @@ router.use(passport.session());
 
 router.use(flash());
 
-router.get("/", (req, res) => {
-    res.render("index");
-});
-
 router.get("/users/register", checkAuthenticated, (req, res) => {
-    res.render("register");
+    res.render("./html/register");
 })
 
 router.get("/users/login", checkAuthenticated, (req, res) => {
-    res.render("login");
+    res.render("./html/login");
 })
 
 router.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
-    res.render("dashboard", { user: req.user.user_email });
+    res.render("./html/dashboard", { user: req.user.user_email });
 })
 
 router.get("/users/logout", checkNotAuthenticated, (req, res) => {
@@ -69,11 +59,11 @@ router.get("/users/logout", checkNotAuthenticated, (req, res) => {
 })
 
 router.get("/users/resetpassword", checkNotAuthenticated, (req, res) => {
-    res.render("resetpassword");
+    res.render("./html/resetpassword");
 });
 
 router.get("/users/deleteaccount", checkNotAuthenticated, (req, res) => {
-    res.render("deleteaccount");
+    res.render("./html/deleteaccount");
 });
 
 
@@ -81,10 +71,10 @@ router.get("/users/deleteaccount", checkNotAuthenticated, (req, res) => {
 router.post("/users/deleteaccount", async (req, res) => {
     let { email, password } = req.body;
 
-    console.log({
-        email,
-        password,
-    });
+    // console.log({
+    //     email,
+    //     password,
+    // });
 
     let errors = [];
 
@@ -93,7 +83,7 @@ router.post("/users/deleteaccount", async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render("deleteaccount", { errors });
+        res.render("./html/deleteaccount", { errors });
     } else {
 
         client.query(
@@ -102,7 +92,7 @@ router.post("/users/deleteaccount", async (req, res) => {
             if (err) {
                 throw err;
             };
-            console.log(results.rows);
+            // console.log(results.rows);
 
             client.query(
                 `DELETE FROM users
@@ -112,7 +102,7 @@ router.post("/users/deleteaccount", async (req, res) => {
                     if (err) {
                         throw err;
                     }
-                    console.log(results.rows);
+                    // console.log(results.rows);
                     req.flash('success_msg', "You have deleted your account");
                     res.redirect("/users/register");
                 }
@@ -126,12 +116,12 @@ router.post("/users/deleteaccount", async (req, res) => {
 router.post("/users/resetpassword", async (req, res) => {
     let { email, password, password3, password4 } = req.body;
 
-    console.log({
-        email,
-        password,
-        password3,
-        password4
-    });
+    // console.log({
+    //     email,
+    //     password,
+    //     password3,
+    //     password4
+    // });
 
     let errors = [];
 
@@ -147,10 +137,10 @@ router.post("/users/resetpassword", async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render("resetpassword", { errors });
+        res.render("./html/resetpassword", { errors });
     } else {
         let hashedPassword = await bcrypt.hash(password3, 10);
-        console.log(hashedPassword);
+        // console.log(hashedPassword);
 
         client.query(
             `SELECT * FROM users
@@ -158,7 +148,7 @@ router.post("/users/resetpassword", async (req, res) => {
             if (err) {
                 throw err;
             };
-            console.log(results.rows);
+            // console.log(results.rows);
 
             client.query(
                 `UPDATE users
@@ -169,7 +159,7 @@ router.post("/users/resetpassword", async (req, res) => {
                     if (err) {
                         throw err;
                     }
-                    console.log(results.rows);
+                    // console.log(results.rows);
                     req.flash('success_msg', "You have successfully changed your password");
                     res.redirect("/users/login");
                 }
@@ -184,11 +174,11 @@ router.post("/users/resetpassword", async (req, res) => {
 router.post("/users/register", async (req, res) => {
     let { email, password, password2 } = req.body;
 
-    console.log({
-        email,
-        password,
-        password2
-    });
+    // console.log({
+    //     email,
+    //     password,
+    //     password2
+    // });
 
     let errors = [];
 
@@ -204,10 +194,10 @@ router.post("/users/register", async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render("register", { errors });
+        res.render("./html/register", { errors });
     } else {
         let hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
+        // console.log(hashedPassword);
 
         client.query(
             `SELECT * FROM users
@@ -215,11 +205,11 @@ router.post("/users/register", async (req, res) => {
             if (err) {
                 throw err;
             };
-            console.log(results.rows);
+            // console.log(results.rows);
 
             if (results.rows.length > 0) {
                 errors.push({ message: "Email already registered" });
-                res.render("register", { errors });
+                res.render("./html/register", { errors });
             } else {
                 client.query(
                     `INSERT INTO users (user_email, user_password)
@@ -230,7 +220,7 @@ router.post("/users/register", async (req, res) => {
                         if (err) {
                             throw err;
                         }
-                        console.log(results.rows);
+                        // console.log(results.rows);
                         req.flash('success_msg', "You are now registered. Pleae log in");
                         res.redirect("/users/login");
                     }

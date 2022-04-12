@@ -7,7 +7,7 @@ const axios = require("axios").default;
 const { json } = require('express/lib/response');
 const rawgRoutes = require('./routes/api/rawgRoutes');
 const gameRoutes = require('./routes/api/gameRoutes');
-const loginRoutes = require('./routes/loginRoutes');
+const loginRoutes = require('./routes/api/loginRoutes');
 
 // Create express app
 const app = express();
@@ -41,25 +41,5 @@ client.connect();
 
 // Setup server ports
 const PORT = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.get("/users/register", (req, res) => {
-  res.render("register");
-})
-
-app.get("/users/login", (req, res) => {
-  res.render("login");
-})
-
-app.get("/users/dashboard", (req, res) => {
-  res.render("dashboard");
-})
-
-app.get("/users/resetpassword", (req, res) => {
-  res.render("resetpassword");
-})
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
