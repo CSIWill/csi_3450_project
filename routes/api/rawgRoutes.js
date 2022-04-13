@@ -21,7 +21,7 @@ client.connect();
 // for (let page_num = 1; page_num < 2; page_num++) {
 //   let options = {
 //     method: 'GET',
-//     url: 'https://api.rawg.io/api/stores?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
+//     url: 'https://api.rawg.io/api/stores?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
 //   };
 //   axios.request(options).then(function (response) {
 //     let storeData = response.data;
@@ -44,7 +44,7 @@ client.connect();
 // for (let page_num = 1; page_num < 2; page_num++) {
 //   let options = {
 //     method: 'GET',
-//     url: 'https://api.rawg.io/api/genres?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
+//     url: 'https://api.rawg.io/api/genres?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
 //   };
 //   axios.request(options).then(function (response) {
 //     let genreData = response.data;
@@ -68,7 +68,7 @@ client.connect();
 // for (let page_num = 1; page_num < 3; page_num++) {
 //   let options = {
 //     method: 'GET',
-//     url: 'https://api.rawg.io/api/platforms?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
+//     url: 'https://api.rawg.io/api/platforms?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
 //   };
 //   axios.request(options).then(function (response) {
 //     let platData = response.data;
@@ -91,7 +91,7 @@ client.connect();
 // for (let page_num = 1; page_num < 21; page_num++) {
 //   let options = {
 //     method: 'GET',
-//     url: 'https://api.rawg.io/api/games?key=' + process.env.YOUR_API_KEY + '&page=' + page_num
+//     url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
 //   };
 //   axios.request(options).then(function (response) {
 //     let gameData = response.data;
@@ -119,7 +119,7 @@ client.connect();
 //       let gameDevCreate = 'INSERT INTO GAMES_DEVELOPER(GAMES_ID,PLATFORM_ID,GAME_RELEASE_DATE,DEV_ID) VALUES($1,$2,$3,$4)';
 //       let moreOptions = {
 //         method: 'GET',
-//         url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '?key=' + process.env.YOUR_API_KEY
+//         url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '?key=' + process.env.RAWG_API_KEY
 //       };
 //       axios.request(moreOptions).then(function (response) {
 //         let gameDetailData = response.data;
@@ -158,7 +158,7 @@ client.connect();
 //       let gamePlatStore = 'INSERT INTO GAME_PLATFORM_AT_STORE(GAMES_ID,PLATFORM_ID,STORE_ID,STORE_URL) VALUES ($1,$2,$3,$4)';
 //       let storeOptions = {
 //         method: 'GET',
-//         url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '/stores?key=' + process.env.YOUR_API_KEY
+//         url: 'https://api.rawg.io/api/games/' + gameData.results[i].id + '/stores?key=' + process.env.RAWG_API_KEY
 //       };
 //       axios.request(storeOptions).then(function (response) {
 //         let gameStoreDetail = response.data;
