@@ -91,7 +91,7 @@ router.post('/detailSearch/', async (req, response) => {
     // searchQuery = searchQuery + 'AND GAME_GENRE LIKE '
     if (req.body.genre.length > 0) {
       // searchQuery = searchQuery + ' AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
-      advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1 AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
+      advancedSearchQuery = 'SELECT DISTINCT GAMES_ID FROM GAMES NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1 AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
       for (let i = 1; i < req.body.genre.length; i++) {
         let nextGenre = await ['"%' + req.body.genre[i] + '%"'];
         advancedSearchQuery = advancedSearchQuery + ' OR GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[i] + "%'"];
@@ -106,27 +106,40 @@ router.post('/detailSearch/', async (req, response) => {
         advancedSearchQuery = advancedSearchQuery + ')';
       }
     }
+    if (req.body.genre.length == 0){
+      if (req.body.platform.length > 0) {
+        advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM WHERE GAMES_TITLE ILIKE $1 AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
+        for (let i = 1; i < req.body.platform.length; i++) {
+          let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
+          advancedSearchQuery = advancedSearchQuery + ' OR PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[i] + "%'"];
+        }
+        advancedSearchQuery = advancedSearchQuery + ')';
+      }
+    }
   }
   if (req.body.search_type == 'developer') {
-    advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_TITLE ILIKE $1';
-    advancedSearchQuery = 'SELECT GAMES_ID FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE WHERE DEV_NAME ILIKE $1 AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
-    for (let i = 1; i < req.body.genre.length; i++) {
-      let nextGenre = await ['"%' + req.body.genre[i] + '%"'];
-      advancedSearchQuery = advancedSearchQuery + ' OR GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[i] + "%'"];
-    }
-    advancedSearchQuery = advancedSearchQuery + ')';
-    if (req.body.platform.length > 0) {
-      advancedSearchQuery = advancedSearchQuery + ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
-      for (let i = 1; i < req.body.platform.length; i++) {
-        let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
-        advancedSearchQuery = advancedSearchQuery + ' OR PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[i] + "%'"];
+    advancedSearchQuery = 'SELECT * FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER WHERE DEV_NAME ILIKE $1';
+    if (req.body.genre.length > 0) {
+    advancedSearchQuery = 'SELECT DISTINCT GAMES_ID FROM GAMES NATURAL JOIN GAMES_DEVELOPER NATURAL JOIN DEVELOPER NATURAL JOIN GAME_PLATFORM NATURAL JOIN PLATFORM NATURAL JOIN GAMES_GENRE NATURAL JOIN GENRE WHERE DEV_NAME ILIKE $1 AND (GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[0] + "%'"];
+      for (let i = 1; i < req.body.genre.length; i++) {
+        let nextGenre = await ['"%' + req.body.genre[i] + '%"'];
+        advancedSearchQuery = advancedSearchQuery + ' OR GENRE_NAME ILIKE ' + await ["'%" + req.body.genre[i] + "%'"];
       }
       advancedSearchQuery = advancedSearchQuery + ')';
+      if (req.body.platform.length > 0) {
+        advancedSearchQuery = advancedSearchQuery + ' AND (PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[0] + "%'"];
+        for (let i = 1; i < req.body.platform.length; i++) {
+          let nextGenre = await ['"%' + req.body.platform[i] + '%"'];
+          advancedSearchQuery = advancedSearchQuery + ' OR PLATFORM_NAME ILIKE ' + await ["'%" + req.body.platform[i] + "%'"];
+        }
+        advancedSearchQuery = advancedSearchQuery + ')';
+      }
     }
+    console.log(advancedSearchQuery);
   }
   let searchResults = [];
   advancedSearchQuery = 'SELECT * FROM GAMES WHERE GAMES_ID IN (' + advancedSearchQuery + ')';
-  // console.log(advancedSearchQuery);
+  console.log(advancedSearchQuery);
   client.query(advancedSearchQuery, userQuery, async (err, res) => {
     if (err) {
       console.log(err.stack)
