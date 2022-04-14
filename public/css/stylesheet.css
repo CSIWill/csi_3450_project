@@ -1,15 +1,29 @@
+.mainNav {
+    float: left;
+    text-align: center;
+    padding-left: 1%;
+}
+
 #login {
     float: right;
     text-align: center;
     padding-right: 1%;
 }
 
-#loggedin {
+.loggedin {
     float: right;
     text-align: center;
     padding-right: 1%;
 }
 
+hr {
+    width: 100%;
+   
+}
+/* #gamebox {
+    padding-top: 10%;
+    padding-bottom: 10%;
+} */
 nav {
     background-color: rgba(0, 0, 0, 1);
     display: inline-block;
@@ -24,27 +38,21 @@ span {
     padding-right: 10px;
 }
 
-/* ul, li {
-    text-align: center;
-} */
-
-h1 {
-    text-align: center;
-}
-
 footer {
     color: rgba(255, 255, 255, 1);
     background-color: rgba(0, 0, 0, 1);
     margin-top: 5%;
     text-align: center;
     padding: 2%;
-}
+    margin-bottom: 0%;
+} 
 
 form {
     text-align: center;
 }
 body {
     background-color: rgba(0, 0, 0, .5);
+    /* flex-direction: column; */
 }
 a:link {
     color: rgb(255, 255, 255);
@@ -61,7 +69,60 @@ a:hover {
     color: rgb(240, 128, 128);
 }
 
+
+
+main {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
 img {
-    width: 20%;
-    height: 20%;
+    width: 75%;
+    height: 75%;
+    text-align: center;
+    margin: auto;
+    display: block;
+
+}
+table {
+    font-size: larger;
+    text-align: center;
+    margin: auto;
+    /* float: right; */
+    max-width:max-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    /* border: 1px solid; */
+    /* padding-left: 15%; */
+    /* padding-right: 15%; */
+
+
+}
+th,td,tr {
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+    /* border: 1px solid; */
+
+}
+h1, h2 {
+    text-align: center;
+}
+#system {
+
+    float: left;
+    text-align: left;
+    border: 1px solid;
+    margin: 0%;
+}
+#gameImage {
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    display: inline-block;
+    margin: 0%;
+}
+#addWishlist {
 }

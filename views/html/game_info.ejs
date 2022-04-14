@@ -12,9 +12,9 @@
 <body>
     <header>
         <nav>
-            <a href="/">My Home Page</a>
-            <a href="/advancedSearch">Advanced Search</a>
-            <a href="/requestWishlist">Wishlist</a>
+            <a href="/" class="mainNav">Home</a>
+            <a href="/advancedSearch" class="mainNav">Advanced Search</a>
+            <a href="/requestWishlist" class="mainNav">Wishlist</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
         <form action="/search/" method="post">
@@ -24,10 +24,29 @@
         </form>
     </header>
     <main>
-
         <h1>
             <%= `${games[0].games_title}` %>
         </h1>
+        <div id="gameImage">
+            <img src="<%= `${games[0].games_img}`%>" 
+                alt="<%= `${games[0].games_title}` %>">
+        </div>
+        
+        <div id="system"> 
+            <h2>Supported Systems</h2>
+            <table>
+                <% for(let i=0; i < games.length; i++) {%>
+                <tr>
+                    <th scope="row"><%= `${games[i].platform_name}` %></th>
+                    <td>
+                        <a href="<%= `${games[i].store_url}`%>">
+                            <%= `${games[i].store_name}`%>
+                        </a>
+                    </td>
+                </tr>  
+                <% } %>
+            </table> 
+        </div>
         <form action="/addWishlist/" method="post" id="addWishlist">
             <label for="user_email">Your Email Address: </label> <br>
             <input type="text" name="user" id="user_email" required> <br>
@@ -39,52 +58,36 @@
                     </option>
                     <% } %>
             </select>
-            
              <br>
             <input type="hidden" name="game_id_num" value="<%= `${games[0].games_id}`%>">
             <button type="submit">Add To Wishlist</button>
-        </form>
+        </form>   
         <output form="addWishlist"> </output>
-        <h2>Supported Systems</h2>
-        <% for(let i=0; i < games.length; i++) {%>
-            <ul>
-                <li>
-                    <%= `${games[i].platform_name}` %>
-                        <a href="<%= `${games[i].store_url}`%>">
-                            <%= `${games[i].store_name}`%>
-                        </a>
-                </li>
-            </ul>
-            <% } %>
-                <h2>Additional Information</h2>
-                <ul>
-                    <li>
-                        Released Date:
-                        <%= `${games[0].game_release_date}` %>
-                    </li>
-                    <li>
-                        Developer:
-                        <%= `${games[0].dev_name}` %>
-                    </li>
-                    <li>
-                        Metacritic Score:
-                        <%= `${games[0].games_score}` %>
-                    </li>
-                    <li>
-                        ESRB Rating:
-                        <%= `${games[0].games_age_rating}` %>
-                    </li>
-                    <li>
-                        <ul>
-                            <h3>Genre: </h3>
-                            <% for(let i=0; i < games_genre.length; i++) {%>
-                                <li>
-                                    <%= `${games_genre[i].genre_name}` %>
-                                </li>
-                                <% } %>
-                        </ul>
-                    </li>
-                </ul>
+        <table>
+            <tr>
+                <th scope="row">Released Date:</th>
+                <td><%= `${games_date[0]}` %></td>
+                <!-- <td><%= `${games[0].game_release_date}` %></td> -->
+            </tr>
+            <tr>
+                <th scope="row">Developer:</th> 
+                <td><%= `${games[0].dev_name}` %></td>
+            </tr>
+            <tr>
+                <th scope="row">Metacritic Score:</th>
+                <td><%= `${games[0].games_score}` %></td>
+            </tr>
+            <tr>
+                <th scope="row">ESRB Rating:</th>
+                <td><%= `${games[0].games_age_rating}` %></td>
+            </tr>
+            <tr>
+                <th scope="row">Genre:</th>
+                <% for(let i=0; i < games_genre.length; i++) {%>
+                    <td><%= `${games_genre[i].genre_name}`%></td>
+                <% } %>
+            </tr>
+        </table>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
@@ -93,6 +96,8 @@
         <address>
             <a id="email" href="mailto:weng2@oakland.edu">Email</a>
         </address>
+        Data Provided by RAWG Video Games Database API 
+        <a href="https://rawg.io/">rawg.io</a>
     </footer>
 </body>
 

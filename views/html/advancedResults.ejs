@@ -12,9 +12,9 @@
 <body>
     <header>
         <nav>
-            <a href="/">My Home Page</a>
-            <a href="/advancedSearch">Advanced Search</a>
-            <a href="/requestWishlist">Wishlist</a>
+            <a href="/" class="mainNav">Home</a>
+            <a href="/advancedSearch" class="mainNav">Advanced Search</a>
+            <a href="/requestWishlist" class="mainNav">Wishlist</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
         <form action="/search/" method="post">
@@ -37,23 +37,29 @@
             </select>
             <button type="submit">Sort</button>
         </form>
-        <% for(let i=0; i < games.length; i++) {%>
-            <ul>
+        <div class="gamebox">
+            <% for(let i=0; i < games.length; i++) {%>
+                <hr>
                 <h2>
                     <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
                         <%= `${games[i].games_title}` %>
+                        <img src="<%= `${games[i].games_img}`%>" 
+                        alt="<%= `${games[i].games_title}` %>">
                     </a>
                 </h2>
-                <li>
-                    <h3>Metacritic: <%= `${games[i].games_score}` %>
-                    </h3>
-                </li>
-                <li>
-                    <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %>
-                    </h3>
-                </li>
-            </ul>
+                <table id="gameinfo">
+                    <tr>
+                        <th scope="row">Metacritic:</th>
+                        <td><%= `${games[i].games_score}` %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ESRB Rating:</th>
+                        <td><%= `${games[i].games_age_rating}` %></td>
+                    </tr>
+                </table>    
             <% } %>
+        </div>
+            
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
@@ -62,6 +68,8 @@
         <address>
             <a id="email" href="mailto:weng2@oakland.edu">Email</a>
         </address>
+        Data Provided by RAWG Video Games Database API 
+        <a href="https://rawg.io/">rawg.io</a>
     </footer>
 </body>
 

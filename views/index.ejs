@@ -12,14 +12,13 @@
 <body>
     <header>
         <nav>
-            <a href="/">My Home Page</a>
-            <a href="/advancedSearch">Advanced Search</a>
-            <a href="/requestWishlist">Wishlist</a>
-            <a href="/users/resetpassword" id="loggedin">Reset Password</a>
-            <a href="/users/deleteaccount" id="loggedin">Delete Account</a>
-            <a href="/users/logout" id="loggedin">Logout</a>
+            <a href="/" class="mainNav">Home</a>
+            <a href="/advancedSearch" class="mainNav">Advanced Search</a>
+            <a href="/requestWishlist" class="mainNav">Wishlist</a>
+            <a href="/users/resetpassword" class="loggedin">Reset Password</a>
+            <a href="/users/deleteaccount" class="loggedin">Delete Account</a>
+            <a href="/users/logout" class="loggedin">Logout</a>
             <a href="/users/login" id="login">Login</a>
-            
         </nav>
         <form action="/search/" method="post">
             <input type="text" name="userSearch" id="userSearch">
@@ -29,60 +28,51 @@
     </header>
     <main>
         <h1>Featured Games / Latest Releases</h1>
+        <div class="gamebox">
+            <% for(let i=0; i < 6; i++) { %>
+                <hr>
+                <div class="gameTitle">
+                    <h2><%= `${games[i].name}` %></h2>
+                    <img src="<%= `${games[i].background_image}`%>" 
+                    alt="<%=`${games[i].name}`%>">
+                </div>
+                <table id="gameinfo">
+                    <tr>
+                        <th scope="row">Metacritic:</th>
+                        <td>
+                            <%= `${games[i].metacritic}` %>
+                        </td>
+                    </tr>  
+                    <tr>
+                        <th scope="row">Genres:</th>
+                        <td>
+                            <% for(let j=0; j < games[i].genres.length; j++) {%>
+                                <%= `|     ` + `${games[i].genres[j].name}` + `     |` %>   
+                                 
+                            <% }%>                       
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Platforms:</th>
+                        <td>
+                            <% for(let j=0; j < games[i].platforms.length; j++) {%>
+                                    <%=  `|     ` + `${games[i].platforms[j].platform.name}` + `     |` %>
+                            <% }%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Stores:</th>
+                        <td>
+                            <% for(let k=0; k < games[i].stores.length; k++) {%>
 
-        <ul class="gamesbox">
-            <% for(let i=0; i < games.length; i++) { %>
-                <li id="gameslist">
-                    <h2>
-                        <%= `${games[i].name}` %>
-                    </h2>
-                    <ul>
-                        <li>
-                            <img src="<%= `${games[i].background_image}`%>" alt="<%=`${games[i].name}`%>">
-                        </li>
-                        <li>
-                            <h3>Metacritic:</h3>
-                            <ul>
-                                <li>
-                                    <%= `${games[i].metacritic}` %>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>Genres:</h3>
-                            <ul>
-                                <% for(let j=0; j < games[i].genres.length; j++) {%>
-                                    <li>
-                                        <%= `${games[i].genres[j].name}` %>
-                                    </li>
-                                    <% }%>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>Platforms: </h3>
-                            <ul>
-                                <% for(let j=0; j < games[i].platforms.length; j++) {%>
-                                    <li>
-                                        <%= `${games[i].platforms[j].platform.name}` %>
-                                    </li>
-                                    <% }%>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>Stores: </h3>
-                            <ul>
-                                <% for(let k=0; k < games[i].stores.length; k++) {%>
-                                    <li>
-                                        <%= `${games[i].stores[k].store.name}` %>
-                                    </li>
-                                    <% }%>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <%} %>
-        </ul>
+                                    <%= `|     ` + `${games[i].stores[k].store.name}` + `     |` %>
 
+                            <% }%>
+                        </td>
+                    </tr>
+                </table>
+            <%} %>
+        </div>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
@@ -91,7 +81,8 @@
         <address>
             <a id="email" href="mailto:weng2@oakland.edu">Email</a>
         </address>
+        Data Provided by RAWG Video Games Database API 
+        <a href="rawg.io">rawg.io</a>
     </footer>
 </body>
-
 </html>

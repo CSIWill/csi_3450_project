@@ -13,9 +13,9 @@
 <body>
     <header>
         <nav>
-            <a href="/">My Home Page</a>
-            <a href="/advancedSearch">Advanced Search</a>
-            <a href="/requestWishlist">Wishlist</a>
+            <a href="/" class="mainNav">Home</a>
+            <a href="/advancedSearch" class="mainNav">Advanced Search</a>
+            <a href="/requestWishlist" class="mainNav">Wishlist</a>
             <a href="/users/login" id="login">Login</a>
         </nav>
     </header>
@@ -34,33 +34,34 @@
             <button type="submit">Sort</button>
         </form>
         <ul>
-            <% for(let i=0; i < games.length; i++) {%>
-            <li>
-                <h2>
-                    <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
-                    <%= `${games[i].games_title}` + `   (${games[i].platform_name})`%>
-                </a>
-            </h2>
-                <ul>
-                    <li>
-                    <h3>Metacritic: <%= `${games[i].games_score}` %>
-                    </h3>
-                </li>
-                <li>
-                    <h3>ESRB Rating: <%= `${games[i].games_age_rating}` %>
-                    </h3>
-                </li>
+            <div class="gamebox">
+                <% for(let i=0; i < games.length; i++) {%>
+                    <hr>
+                    <h2>
+                        <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
+                            <%= `${games[i].games_title}` %>
+                            <img src="<%= `${games[i].games_img}`%>" 
+                            alt="<%= `${games[i].games_title}` %>">
+                        </a>
+                    </h2>
                     <form action="/delWishlistItem/" method="post">
                         <input type="hidden" name="user_id_num" value="<%=`${games[i].user_id}`%>">
                         <input type="hidden" name="games_id_num" value="<%=`${games[i].games_id}`%>">
                         <input type="hidden" name="platform_id_num" value="<%=`${games[i].platform_id}`%>">
                         <button type="submit">Remove</button>
                     </form>
-                </ul>
-            </li>
-            <% } %>
-        </ul>
-        
+                    <table id="gameinfo">
+                        <tr>
+                            <th scope="row">Metacritic:</th>
+                            <td><%= `${games[i].games_score}` %></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ESRB Rating:</th>
+                            <td><%= `${games[i].games_age_rating}` %></td>
+                        </tr>
+                    </table>    
+                <% } %>
+            </div>
     </main>
     <footer>
         &copy;2022, Ctrl Alt Elite
@@ -69,5 +70,7 @@
         <address>
             <a id="email" href="mailto:weng2@oakland.edu">Email</a>
         </address>
+        Data Provided by RAWG Video Games Database API 
+        <a href="https://rawg.io/">rawg.io</a>
     </footer>
 </body>

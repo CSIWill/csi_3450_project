@@ -226,4 +226,27 @@ client.connect();
 //   });
 // }
 
+// for (let page_num = 1; page_num < 21; page_num++) {
+//   let options = {
+//     method: 'GET',
+//     url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
+//   };
+//   axios.request(options).then(function (response) {
+//     let gameData = response.data;
+//     // Populate Games
+//     let gameCreate = 'UPDATE GAMES SET GAMES_IMG = $1 WHERE GAMES_ID = $2';
+//     for (let i = 0; i < gameData.results.length; i++) {
+//       let gameInfo = [0];
+//       gameInfo = [gameData.results[i].background_image, gameData.results[i].id];
+//       client.query(gameCreate, gameInfo, (err, res) => {
+//         // if (err) {
+//         //   console.log(err.stack)
+//         // }      
+//       });
+//     }
+//   }).catch(function (error) {
+//     console.error(error);
+//   });
+// }
+
 module.exports = router;

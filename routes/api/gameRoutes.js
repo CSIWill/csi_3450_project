@@ -8,6 +8,7 @@ const { json } = require('express/lib/response');
 const axios = require("axios").default;
 const { Client } = require('pg');
 const { string } = require("pg-format");
+const res = require("express/lib/response");
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -152,12 +153,29 @@ router.get('/game_info/:id', (req, response) => {
   client.query(query1, async (err, res1) => {
     client.query(queryDetails, async (err, res2) => {
       client.query(query3, async (err, res3) => {
+        let format_date = [];
+        let game_date = [];
+        for(i=0; i < res3.rows.length; i++) {
+          format_date[i] = new Date(res3.rows[i].game_release_date);
+          let year = format_date[i].getFullYear();
+          let month = format_date[i].getMonth()+1;
+          let day = format_date[i].getDate();
+          if (day < 10) {
+            day = '0' + day;
+          }
+          if (month < 10) {
+            month = '0' + month;
+          }
+          game_date[i] = year + '-' + month + '-'+ day;
+        }
+          
         client.query(query4, async (err, res4) => {
           client.query(queryGenre, async (err, res5) => {
             client.query(query6, async (err, res6) => {
               response.render('./html/game_info', {
                 games: res3.rows,
-                games_genre: res6.rows
+                games_genre: res6.rows,
+                games_date: game_date
               });
             });
           });
@@ -185,6 +203,13 @@ router.post('/sort/', async (req, response) => {
   if (req.body.sort_type == 'metacritic_score' && req.body.sort_order == 'descending') {
     searchNameQueryOptions = searchNameQuery + ' AND GAMES_SCORE IS NOT NULL ORDER BY GAMES_SCORE DESC';
   }
+  // if (req.body.sort_type == 'release_date' && req.body.sort_order == 'ascending') {
+  //   searchNameQueryOptions = 'SELECT * FROM GAMES WHERE GAMES_ID IN (SELECT GAMES_ID FROM GAMES NATURAL JOIN GAME_PLATFORM NATURAL JOIN GAMES_DEVELOPER WHERE GAMES_TITLE ILIKE $1 ORDER BY GAME_RELEASE_DATE ASC)';
+  // }
+  // if (req.body.sort_type == 'release_date' && req.body.sort_order == 'descending') {
+  //   searchNameQueryOptions = 'SELECT * FROM GAMES WHERE GAMES_ID IN (SELECT GAMES_ID FROM GAMES NATURAL JOIN GAME_PLATFORM NATURAL JOIN GAMES_DEVELOPER WHERE GAMES_TITLE ILIKE $1 ORDER BY GAME_RELEASE_DATE DESC)';
+  // }
+
   let searchResults = [];
   // console.log(searchNameQueryOptions);
   client.query(searchNameQueryOptions, userQuery, async (err, res) => {
