@@ -39,7 +39,7 @@
                     <hr>
                     <h2>
                         <a href="<%= '/game_info' + `/${games[i].games_id}`%>">
-                            <%= `${games[i].games_title}` %>
+                            <%= `${games[i].games_title}` + `   (${games[i].platform_name})`%>
                             <img src="<%= `${games[i].games_img}`%>" 
                             alt="<%= `${games[i].games_title}` %>">
                         </a>
