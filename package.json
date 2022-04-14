@@ -26,7 +26,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
     "handlebars": "^4.7.7",
-    "node-fetch": "^2.0.0",
+    "node-fetch": "^2.6.7",
     "node-postgres": "^0.6.2",
     "nodemon": "^2.0.15",
     "package.json": "^2.0.1",

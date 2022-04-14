@@ -12,17 +12,215 @@
 <body>
     <header>
         <nav>
-            <a href="/" class="mainNav">Home</a>
-            <a href="/advancedSearch" class="mainNav">Advanced Search</a>
-            <a href="/requestWishlist" class="mainNav">Wishlist</a>
-            <a href="/users/resetpassword" class="loggedin">Reset Password</a>
-            <a href="/users/deleteaccount" class="loggedin">Delete Account</a>
-            <a href="/users/logout" class="loggedin">Logout</a>
-            <a href="/users/login" id="login">Login</a>
+            <!DOCTYPE html>
+            <html lang="en" >
+            
+            <head>
+            
+              <meta charset="UTF-8">
+              
+            <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+            <meta name="apple-mobile-web-app-title" content="CodePen">
+            
+            <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+            
+            <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+            
+            
+              <title>CodePen - Pure CSS Hamburger fold-out menu</title>
+              
+              
+              
+              
+            <style>
+            
+            body
+            {
+              margin: 0;
+              padding: 0;
+              
+    
+              background: #1d1b1b;
+              color: #cdcdcd;
+              font-family: "Avenir Next", "Avenir", sans-serif;
+            }
+            
+            #menuToggle
+            {
+              display: block;
+              position: relative;
+              top: 50px;
+              left: 50px;
+              
+              z-index: 1;
+              
+              -webkit-user-select: none;
+              -moz-user-select: none;
+               -ms-user-select: none;
+                   user-select: none;
+            }
+            
+            #menuToggle a
+            {
+              text-decoration: none;
+              color: #232323;
+              
+              transition: color 0.3s ease;
+            }
+            
+            #menuToggle a:hover
+            {
+              color: tomato;
+            }
+            
+            
+            #menuToggle input
+            {
+              display: block;
+              width: 40px;
+              height: 32px;
+              position: absolute;
+              top: -7px;
+              left: -5px;
+              
+              cursor: pointer;
+              
+              opacity: 0; 
+              z-index: 2; 
+              
+              -webkit-touch-callout: none;
+            }
+            
+
+            #menuToggle span
+            {
+              display: block;
+              width: 33px;
+              height: 4px;
+              margin-bottom: 5px;
+              position: relative;
+              
+              background: #cdcdcd;
+              border-radius: 3px;
+              
+              z-index: 1;
+              
+              transform-origin: 4px 0px;
+              
+              transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                          background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                          opacity 0.55s ease;
+            }
+            
+            #menuToggle span:first-child
+            {
+              transform-origin: 0% 0%;
+            }
+            
+            #menuToggle span:nth-last-child(2)
+            {
+              transform-origin: 0% 100%;
+            }
+
+            #menuToggle input:checked ~ span
+            {
+              opacity: 1;
+              transform: rotate(45deg) translate(-2px, -1px);
+              background: #232323;
+            }
+
+            #menuToggle input:checked ~ span:nth-last-child(3)
+            {
+              opacity: 0;
+              transform: rotate(0deg) scale(0.2, 0.2);
+            }
+
+            #menuToggle input:checked ~ span:nth-last-child(2)
+            {
+              transform: rotate(-45deg) translate(0, -1px);
+            }
+
+            #menu
+            {
+              position: absolute;
+              width: 300px;
+              margin: -100px 0 0 -50px;
+              padding: 50px;
+              padding-top: 125px;
+              
+              background: #ededed;
+              list-style-type: none;
+              -webkit-font-smoothing: antialiased;
+
+              
+              transform-origin: 0% 0%;
+              transform: translate(-100%, 0);
+              
+              transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            }
+            
+            #menu li
+            {
+              padding: 10px 0;
+              font-size: 22px;
+            }
+        
+            #menuToggle input:checked ~ ul
+            {
+              transform: none;
+            }
+            </style>
+            
+              <script>
+              window.console = window.console || function(t) {};
+            </script>
+            
+              
+              
+              <script>
+              if (document.location.search.match(/type=embed/gi)) {
+                window.parent.postMessage("resize", "*");
+              }
+            </script>
+            
+            
+            </head>
+            
+            <body translate="no" >
+             
+            <nav role="navigation">
+              <div id="menuToggle">
+               
+                <input type="checkbox" />
+                
+              
+                <span></span>
+                <span></span>
+                <span></span>
+                
+               
+                <ul id="menu">
+                    <a href="/"><li>Home</li></a>
+                    <a href="/advancedSearch"><li>Advanced Search</li></a>
+                    <a href="/requestWishlist"><li>Wishlist</li></a>
+                    <a href="/users/resetpassword"><li>Reset Password</li></a>
+                    <a href="/users/deleteaccount"><li>Delete Account</li></a>
+                    <a href="/users/logout"><li>Logout</li></a>
+                    <a href="/users/login"><li>Login</li></a>
+                </ul>
+              </div>
+            </nav>
+                <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+            
+              
+                  <script id="rendered-js" >
+            
+                </script>
+            
+              
         </nav>
         <form action="/search/" method="post">
-            <input type="text" name="userSearch" id="userSearch">
-            <label for="userSearch">Search</label>
+            <input type="text" name="userSearch" id="userSearch" placeholder="Search">
             <button type="submit">Submit</button>
         </form>
     </header>
@@ -75,14 +273,219 @@
         </div>
     </main>
     <footer>
-        &copy;2022, Ctrl Alt Elite
+        <!DOCTYPE html>
+        <html lang="en" >
+        
+        <head>
+        
+          <meta charset="UTF-8">
+          
+        <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+        <meta name="apple-mobile-web-app-title" content="CodePen">
+        
+        <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+        
+        <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+        
+        
+          <title>CodePen - Responsive, Multi-Level, Sticky Footer with Flexbox</title>
+           <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+          
+          
+          
+        <style>
+        /* Generic styling */
+       
+        footer {
+          background-color: rgb(58, 58, 58);
+          color: #bbb;
+          line-height: 1.5;
+        }
+        footer a {
+          text-decoration: none;
+          color: #eee;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        .ft-title {
+          color: #fff;
+          font-family: "Merriweather", serif;
+          font-size: 1.375rem;
+          padding-bottom: 0.625rem;
+          padding-left: 17%;
+        }
+        /* Sticks footer to bottom */
+        body {
+          display: flex;
+          min-height: 100vh;
+          flex-direction: column;
+        }
+        .container {
+          flex: 1;
+        }
+        /* Footer main */
+        .ft-main {
+          padding: 1.25rem 1.875rem;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        @media only screen and (min-width: 29.8125rem /* 477px */) {
+          .ft-main {
+            justify-content: space-evenly;
+          }
+        }
+        @media only screen and (min-width: 77.5rem /* 1240px */) {
+          .ft-main {
+            justify-content: space-evenly;
+          }
+        }
+        .ft-main-item {
+          padding: 1.25rem;
+          min-width: 12.5rem;
+        }
+        input[type="email"] {
+          border: 0;
+          padding: 0.625rem;
+          margin-top: 0.3125rem;
+        }
+        input[type="submit"] {
+          background-color: #00d188;
+          color: #fff;
+          cursor: pointer;
+          border: 0;
+          padding: 0.625rem 0.9375rem;
+          margin-top: 0.3125rem;
+        }
+        /* Footer social */
+        .ft-social {
+          padding: 0 1.875rem 1.25rem;
+        }
+        .ft-social-list {
+          display: flex;
+          justify-content: center;
+          border-top: 1px #777 solid;
+          padding-top: 1.25rem;
+          list-style: none;
+          padding-left: 0;
+        }
+        .ft-social-list li {
+          margin: 0.5rem;
+          font-size: 1.25rem;
+        }
+        /* Footer legal */
+        .ft-legal {
+          padding: 0.9375rem 1.875rem;
+          background-color: #333;
+          list-style: none;
+          padding-left: 0;
+        }
+        .ft-legal-list {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          list-style: none;
+          padding-left: 0;
+        }
+        .ft-legal-list li {
+          margin: 0.125rem 0.625rem;
+          white-space: nowrap;
+        }
+        /* one before the last child */
+        .ft-legal-list li:nth-last-child(2) {
+            flex: 1;
+        }
+        </style>
+        
+          <script>
+          window.console = window.console || function(t) {};
+        </script>
+        
+          
+          
+          <script>
+          if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+          }
+        </script>
+        
+        
+        </head>
+        
+        <body translate="no" >
+          <div class="container"></div>
+        <footer>
+          <!-- Footer main -->
+          <section class="ft-main">
+            <div class="ft-main-item">
+              <h2 class="ft-title">Home</h2>
+              <ul style="list-style: none;"
+              padding-left: 0;>
+              <li><a href="/" class="mainNav">Featured Games</a></li>
+                
+              </ul>
+            </div>
+            <div class="ft-main-item">
+              <h2 class="ft-title">Account</h2>
+              <ul style="list-style: none;"
+              padding-left: 0;>
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/logout">Logout</a></li>
+                <li><a href="/users/register">Register</a></li>
+                <li><a href="/users/deleteaccount">Delete Account</a></li>
+                <li><a href="/users/resetpassword">Forgot Password</a></li>
+                
+              </ul>
+            </div>
+            <div class="ft-main-item">
+              <h2 class="ft-title">Wishlist</h2>
+              <ul style="list-style: none;"
+              padding-left: 0; >
+                <li><a href="/requestWishlist">Your Wishlist</a></li>
+              </ul>
+            </div>
+            <div class="ft-main-item">
+                <h2 class="ft-title">Search</h2>
+                <ul style="list-style: none;"
+                padding-left: 0; >
+                  <li><a href="/advancedSearch">Advanced Search</a></li>
+                </ul>
+              </div>
+            <div class="ft-main-item">
+              <p><img src="https://ml72sxuicgkm.i.optimole.com/3-WhWO0-MqPYihOd/w:auto/h:auto/q:auto/https://rocketlads.com/wp-content/uploads/2021/01/ctrlaltelite400.png" alt="logo"></p>
+            </div>
+          </section>
+        
+          <!-- Footer social -->
+          <section class="ft-social">
+            <ul class="ft-social-list">
+              <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+              <li><a href="#"><i class="fab fa-github"></i></a></li>
+              <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+              <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            </ul>
+          </section>
+        
+          <!-- Footer legal -->
+          <section class="ft-legal">
+            <ul class="ft-legal-list">
+              <li><a href="mailto:weng2@oakland.edu">Contact Us</a></li>
+              <li><a href="#">&copy;2022, Ctrl Alt Elite</a></li>
+              <li><a href="https://rawg.io/apidocs">Data Provided by RAWG Video Games Database API</a></li>
+            </ul>
+          </section>
+        <!--&copy;2022, Ctrl Alt Elite
         <br>
         Contact Us
         <address>
             <a id="email" href="mailto:weng2@oakland.edu">Email</a>
         </address>
         Data Provided by RAWG Video Games Database API 
-        <a href="rawg.io">rawg.io</a>
+        <a href="rawg.io">rawg.io</a> -->
     </footer>
 </body>
 </html>
