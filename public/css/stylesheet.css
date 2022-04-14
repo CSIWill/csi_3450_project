@@ -20,11 +20,11 @@ hr {
     width: 100%;
    
 }
-/* #gamebox {
+ #gamebox {
     padding-top: 10%;
     padding-bottom: 10%;
-} */
-nav {
+} 
+/*nav {
     background-color: rgba(0, 0, 0, 1);
     display: inline-block;
     width: 100%;
@@ -32,7 +32,7 @@ nav {
     padding-bottom: 2%;
     margin-bottom: 30px;
 }
-
+*/
 span {
     padding-left: 10px;
     padding-right: 10px;
