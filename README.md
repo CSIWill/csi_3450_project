@@ -7,7 +7,7 @@ This holds our CSS stylesheet, old HTML files that served as prototypes for our 
 
 ### routes\api
 #### rawgRoutes
-This runs at server startup.  It calls the rawg API for data and then saves the data by inserting into our PostgreSQL database.  I have this commented out as we have a limited number of free calls to rawg API.
+This runs at server startup.  It calls the rawg API for data and then saves the data by inserting into our PostgreSQL database.  I have this commented out as we have a limited number of free calls to rawg API.  If running on a new/clean database, make sure to uncomment this code.
 #### loginRoutes
 This uses Passport and bcrypt to encrypt user passwords and then store thme into our PostgreSQL database.
 #### gameRoutes
