@@ -2,7 +2,7 @@
 Uses API data from rawg.io to populate postgresql database.  Website then fetches data from the database to demonstrate database functionality
 
 ## Cloning/Forking/Pulling
-If you plan on cloning/forking/pulling this repository, you must get a rawg API key as well as the URL for your database.  You can register for a rawg API key by making an account and registering for an api key.  You can get a free database from Heroku which will provide database credentials and URL.  Once you have this information, store it in a new file named config.env in the root directory.
+If you plan on cloning/forking/pulling this repository, you must get a rawg API key as well as the URL for your database.  You can register for a rawg API key by making an account and registering for an api key @ https://rawg.io/.  You can get a free database from Heroku which will provide database credentials and URL.  Once you have this information, store it in a new file named config.env in the root directory.
 
 ## File Structure
 ### public
