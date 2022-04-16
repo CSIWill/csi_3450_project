@@ -96,16 +96,16 @@ client.connect();
 //   axios.request(options).then(function (response) {
 //     let gameData = response.data;
 //     // Populate Games
-//     let gameCreate = 'INSERT INTO GAMES(GAMES_ID,GAMES_TITLE,GAMES_SCORE,GAMES_AGE_RATING) VALUES($1,$2,$3,$4)';
+//     let gameCreate = 'INSERT INTO GAMES(GAMES_ID,GAMES_TITLE,GAMES_SCORE,GAMES_AGE_RATING,GAMES_IMG) VALUES($1,$2,$3,$4,$5)';
 //     for (let i = 0; i < gameData.results.length; i++) {
 
 //       let gameInfo = [0];
 
 //       if (gameData.results[i].esrb_rating == null) {
-//         gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, 'Not Available'];
+//         gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, 'Not Available', gameData.results[i].background_image];
 //       }
 //       else {
-//         gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, gameData.results[i].esrb_rating.name];
+//         gameInfo = [gameData.results[i].id, gameData.results[i].name, gameData.results[i].metacritic, gameData.results[i].esrb_rating.name,gameData.results[i].background_image];
 //       }
 //       client.query(gameCreate, gameInfo, (err, res) => {
 //         // if (err) {
@@ -125,33 +125,48 @@ client.connect();
 //         let gameDetailData = response.data;
 //         // console.log(gameDetailData.name, gameDetailData.id);
 //         let devInfo = [];
+//         //developer create
 //         if (gameDetailData.developers.length == 0) {
 //           devInfo = [999999, 'Unavailable'];
+//           client.query(devCreate, devInfo, (err, res) => {
+//             // if (err) {
+//             //   console.log(err.stack)
+//             // }
+//           });
 //         }
-//         else {
-//           devInfo = [gameDetailData.developers[0].id, gameDetailData.developers[0].name];
+//         if (gameDetailData.developers.length > 0) {
+//           for (let j = 0; j < gameDetailData.developers.length; j++) {
+//             devInfo = [gameDetailData.developers[j].id, gameDetailData.developers[j].name];
+//             client.query(devCreate, devInfo, (err, res) => {
+//               // if (err) {
+//               //   console.log(err.stack)
+//               // }
+//             });
+//           }
 //         }
-//         //developer create
-//         client.query(devCreate, devInfo, (err, res) => {
-//           // if (err) {
-//           //   console.log(err.stack)
-//           // }
-//         });
+
+
 //         //game_developer create
 //         for (let j = 0; j < gameDetailData.platforms.length; j++) {
 //           let gameDev = [];
 //           if (gameDetailData.developers.length == 0) {
 //             gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, 999999];
+//             client.query(gameDevCreate, gameDev, (err, res) => {
+//               // if (err) {
+//               //   console.log(err.stack)
+//               // }
+//             });
 //           }
-//           else {
-//             gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, gameDetailData.developers[0].id];
+//           if (gameDetailData.developers.length > 0) {
+//             for (let k = 0; k < gameDetailData.developers.length; k++)
+//             gameDev = [gameData.results[i].id, gameDetailData.platforms[j].platform.id, gameDetailData.platforms[j].released_at, gameDetailData.developers[k].id];
+//             client.query(gameDevCreate, gameDev, (err, res) => {
+//               // if (err) {
+//               //   console.log(err.stack)
+//               // }
+//             });
 //           }
-//           let g
-//           client.query(gameDevCreate, gameDev, (err, res) => {
-//             // if (err) {
-//             //   console.log(err.stack)
-//             // }
-//           });
+
 //         }
 //       });
 //       // Link Games Stores and Platforms
@@ -226,27 +241,27 @@ client.connect();
 //   });
 // }
 
-// for (let page_num = 1; page_num < 21; page_num++) {
-//   let options = {
-//     method: 'GET',
-//     url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
-//   };
-//   axios.request(options).then(function (response) {
-//     let gameData = response.data;
-//     // Populate Games
-//     let gameCreate = 'UPDATE GAMES SET GAMES_IMG = $1 WHERE GAMES_ID = $2';
-//     for (let i = 0; i < gameData.results.length; i++) {
-//       let gameInfo = [0];
-//       gameInfo = [gameData.results[i].background_image, gameData.results[i].id];
-//       client.query(gameCreate, gameInfo, (err, res) => {
-//         // if (err) {
-//         //   console.log(err.stack)
-//         // }      
-//       });
-//     }
-//   }).catch(function (error) {
-//     console.error(error);
-//   });
-// }
+// // for (let page_num = 1; page_num < 21; page_num++) {
+// //   let options = {
+// //     method: 'GET',
+// //     url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&page=' + page_num
+// //   };
+// //   axios.request(options).then(function (response) {
+// //     let gameData = response.data;
+// //     // Populate Games
+// //     let gameCreate = 'UPDATE GAMES SET GAMES_IMG = $1 WHERE GAMES_ID = $2';
+// //     for (let i = 0; i < gameData.results.length; i++) {
+// //       let gameInfo = [0];
+// //       gameInfo = [gameData.results[i].background_image, gameData.results[i].id];
+// //       client.query(gameCreate, gameInfo, (err, res) => {
+// //         // if (err) {
+// //         //   console.log(err.stack)
+// //         // }      
+// //       });
+// //     }
+// //   }).catch(function (error) {
+// //     console.error(error);
+// //   });
+// // }
 
 module.exports = router;
