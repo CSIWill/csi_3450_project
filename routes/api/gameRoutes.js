@@ -22,7 +22,8 @@ client.connect();
 router.get("/", (req, res) => {
   let options = {
     method: 'GET',
-    url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&page=1'
+    url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&ordering=released',
+    ordering: '-released'
   };
   axios.request(options).then(function (response) {
     let gameData = response.data;
