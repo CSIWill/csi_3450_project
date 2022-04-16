@@ -19,10 +19,13 @@ const client = new Client({
 
 client.connect();
 
+
+// url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&ordering=released',
 router.get("/", (req, res) => {
   let options = {
     method: 'GET',
-    url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY + '&ordering=released',
+    
+    url: 'https://api.rawg.io/api/games?key=' + process.env.RAWG_API_KEY,
     ordering: '-released'
   };
   axios.request(options).then(function (response) {
