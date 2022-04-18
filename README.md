@@ -18,6 +18,10 @@ This uses the database data to render our EJS view templates
 
 ### views
 Hold our EJS view templates
+#### login related
+Here are all the login related views: dashboard.ejs, deleteaccount.ejs, login.ejs, register.ejs
+##### search related
+Here are all the search related views: search.ejs, advancedResults.ejs, results.ejs
 
 ### Config
 index.js is our server config file

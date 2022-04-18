@@ -240,7 +240,7 @@ client.connect();
 //     console.error(error);
 //   });
 // }
-
+//  Update images if they have changed.  Originally created after an alter table query to add game_img
 // // for (let page_num = 1; page_num < 21; page_num++) {
 // //   let options = {
 // //     method: 'GET',
