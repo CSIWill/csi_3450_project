@@ -29,5 +29,6 @@ passportConfig.js is the passport config file for securing passwords
 
 ## Codepen for interactivity with nav bar and footer
 https://codepen.io/erikterwan/pen/EVzeRP
+
 https://codepen.io/tutsplus/pen/yWrEgW
 
